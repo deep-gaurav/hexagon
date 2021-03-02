@@ -7,7 +7,15 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-# log = "0.4"
-# hexagon-shared = {path="../hexagon-shared"}
+log = "0.4"
+hexagon-shared = {path="../hexagon-shared"}
 tokio = { version = "1", features = ["full"] }
-# warp = "0.3"
+warp = "0.3"
+serde = {version="1",features=["derive"]}
+bincode = "1"
+itertools = "0.10"
+pretty_env_logger = "0.3"
+futures-util = "0.3"
+rand = "0.8"
+tokio-stream = "0.1"
+uuid = { version = "0.8", features = ["serde", "v4"] }

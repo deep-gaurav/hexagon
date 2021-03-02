@@ -1,7 +1,6 @@
 use yew::prelude::*;
 
-use hexagon_shared::board::{Board, Point};
-use crate::components::colors::Color;
+use hexagon_shared::{board::{Board, Point}, colors::colors::Color};
 use hexagon_shared::models::*;
 
 pub struct HexBoard {

@@ -262,7 +262,7 @@ dependencies = [
  "log",
  "wasm-logger",
  "web-sys",
- "yew",
+ "yew 0.17.4 (git+https://github.com/yewstack/yew.git)",
  "yewtil",
 ]
 
@@ -608,7 +608,31 @@ dependencies = [
  "wasm-bindgen",
  "wasm-bindgen-futures",
  "web-sys",
- "yew-macro",
+ "yew-macro 0.17.0 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "yew"
+version = "0.17.4"
+source = "git+https://github.com/yewstack/yew.git#37401402a1e370a749e9cf5f1451252bb0b47366"
+dependencies = [
+ "anyhow",
+ "anymap",
+ "bincode",
+ "console_error_panic_hook",
+ "gloo",
+ "http",
+ "indexmap",
+ "js-sys",
+ "log",
+ "serde",
+ "serde_json",
+ "slab",
+ "thiserror",
+ "wasm-bindgen",
+ "wasm-bindgen-futures",
+ "web-sys",
+ "yew-macro 0.17.0 (git+https://github.com/yewstack/yew.git)",
 ]
 
 [[package]]
@@ -626,6 +650,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "yew-macro"
+version = "0.17.0"
+source = "git+https://github.com/yewstack/yew.git#37401402a1e370a749e9cf5f1451252bb0b47366"
+dependencies = [
+ "boolinator",
+ "lazy_static",
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
 name = "yewtil"
 version = "0.3.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -635,5 +671,5 @@ dependencies = [
  "log",
  "wasm-bindgen",
  "wasm-bindgen-futures",
- "yew",
+ "yew 0.17.4 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
