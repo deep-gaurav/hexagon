@@ -125,9 +125,13 @@ async fn user_connected(websocket: WebSocket, context: Context) {
                                 Ok(message) => match message {
                                     PlayerMessage::CreateLobby => {
                                         use rand::{distributions::Alphanumeric, Rng};
-                                        let lobbyid: String = format!(
-                                            "{}",uuid::Uuid::new_v4()
-                                        );
+                                        let lobbyid: String = {
+                                            rand::thread_rng()
+                                            .sample_iter(&Alphanumeric)
+                                            .take(5)
+                                            .map(char::from)
+                                            .collect()
+                                        };
                                         let privatelobbies =
                                             &mut context.write().await.private_lobbies;
                                         if let Some(_lob) = privatelobbies.get(&lobbyid) {
