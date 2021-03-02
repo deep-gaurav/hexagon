@@ -1,7 +1,7 @@
 use strum::EnumIter;
 use serde::{Serialize,Deserialize};
 
-#[derive(Debug,EnumIter,PartialEq,Clone,Serialize,Deserialize)]
+#[derive(Debug,EnumIter,PartialEq,Clone,Copy,Serialize,Deserialize)]
 pub enum Color {
     Green,
     Red,

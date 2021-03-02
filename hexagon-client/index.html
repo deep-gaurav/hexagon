@@ -2,7 +2,35 @@
 <html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hexagon</title>
     <link data-trunk rel="scss" href="styles/main.scss"/>
   </head>
+  <script>
+    history.pushState = (f => function pushState() {
+        var ret = f.apply(this, arguments);
+        window.dispatchEvent(new Event('pushstate'));
+        window.dispatchEvent(new Event('locationchange'));
+        return ret;
+    })(history.pushState);
+
+    history.replaceState = (f => function replaceState() {
+        var ret = f.apply(this, arguments);
+        window.dispatchEvent(new Event('replacestate'));
+        window.dispatchEvent(new Event('locationchange'));
+        return ret;
+    })(history.replaceState);
+
+    window.addEventListener('popstate', () => {
+        window.dispatchEvent(new Event('locationchange'))
+    });
+  </script>
+  <body>
+    <script>
+      let t = + new Date();
+      let id = localStorage.getItem("player_id") || btoa(t.toString());
+      localStorage.setItem("player_id", id);
+      window.get_uid = () => id.toString();
+    </script>
+  </body>
 </html>

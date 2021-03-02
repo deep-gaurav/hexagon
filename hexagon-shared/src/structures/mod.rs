@@ -90,7 +90,7 @@ pub enum PlayerStatus {
     JoinedLobby(String, Color),
 }
 
-#[derive(Debug, Serialize, Copy, Clone)]
+#[derive(Debug, Serialize,Deserialize, Copy, Clone)]
 pub enum CloseCodes {
     WrongInit,
     CantCreateLobby,
@@ -128,7 +128,7 @@ pub enum PlayerMessage {
     StartGame(GameType, TeamMode),
 }
 
-#[derive(Debug, Serialize, Clone)]
+#[derive(Debug, Serialize,Deserialize, Clone)]
 pub enum SocketMessage {
     LobbyJoined(Lobby, Color),
     PlayerJoined(Player, Color),

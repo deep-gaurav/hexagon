@@ -14,7 +14,9 @@ pub enum Msg {
 }
 
 #[derive(Debug, Clone, Properties)]
-pub struct Props {}
+pub struct Props {
+    pub board:Board
+}
 
 impl Component for HexBoard {
     type Message = Msg;
@@ -23,7 +25,7 @@ impl Component for HexBoard {
 
     fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
         Self {
-            board: Board::generate_hexagon(8),
+            board: props.board,
             selected_cell: None,
             link,
         }

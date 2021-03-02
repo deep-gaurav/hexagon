@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use crate::models::{*};
+use crate::{colors::colors::Color, models::{*}};
 
 use serde::{Serialize,Deserialize};
 
@@ -25,6 +25,7 @@ impl From<AxialCoord> for Point {
 pub struct Board{
     pub points:HashMap<Point,AxialCoord>,
     pub max_size:u32,
+    pub turn:Color
 }
 
 #[derive(Debug,PartialEq,Clone, Copy)]
@@ -35,7 +36,7 @@ pub enum Axis{
 }
 
 impl Board {
-    pub fn generate_hexagon(size:u32)->Self{
+    pub fn generate_hexagon(size:u32,first_turn:Color)->Self{
         let mut points = HashMap::new();
 
         for axis1 in vec![Axis::X,Axis::Y,Axis::Z]{
@@ -81,7 +82,8 @@ impl Board {
 
         Self{
             points,
-            max_size:size
+            max_size:size,
+            turn:first_turn
         }
     }
 

@@ -157,12 +157,16 @@ impl ServerLobby {
         match &self.state {
             State::Lobby(pid) => {
                 if playerid == pid {
-                    self.state = State::Game({
-                        match game_type {
-                            GameType::TwoPlayer => Board::generate_hexagon(8),
+                    if let Some(player)= self.players.get(pid){
+                        if let PlayerStatus::JoinedLobby(_,color)=player.status{
+                            self.state = State::Game({
+                                match game_type {
+                                    GameType::TwoPlayer => Board::generate_hexagon(8,color),
+                                }
+                            });
+                            self.broadcast(SocketMessage::GameStart(self.state.clone()));
                         }
-                    });
-                    self.broadcast(SocketMessage::GameStart(self.state.clone()));
+                    }
                 } else {
                     warn!("Only leader {:#} can start game", pid);
                 }

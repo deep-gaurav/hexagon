@@ -1,6 +1,34 @@
 <!DOCTYPE html><html><head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hexagon</title>
     <link rel="stylesheet" href="/main-b932abe0e705a6cc.css">
-  <script type="module">import init from '/index-8aaaedcfc48dd6aa.js';init('/index-8aaaedcfc48dd6aa_bg.wasm');</script></head>
-<body></body></html>
+  <script>
+    history.pushState = (f => function pushState() {
+        var ret = f.apply(this, arguments);
+        window.dispatchEvent(new Event('pushstate'));
+        window.dispatchEvent(new Event('locationchange'));
+        return ret;
+    })(history.pushState);
+
+    history.replaceState = (f => function replaceState() {
+        var ret = f.apply(this, arguments);
+        window.dispatchEvent(new Event('replacestate'));
+        window.dispatchEvent(new Event('locationchange'));
+        return ret;
+    })(history.replaceState);
+
+    window.addEventListener('popstate', () => {
+        window.dispatchEvent(new Event('locationchange'))
+    });
+  </script><script type="module">import init from '/index-67b97ff794f86673.js';init('/index-67b97ff794f86673_bg.wasm');</script></head>
+  
+  <body>
+    <script>
+      let t = + new Date();
+      let id = localStorage.getItem("player_id") || btoa(t.toString());
+      localStorage.setItem("player_id", id);
+      window.get_uid = () => id.toString();
+    </script>
+  
+</body></html>
