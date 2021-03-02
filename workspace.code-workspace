@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "hexagon-client"
+		},
+		{
+			"path": "hexagon-server"
+		},
+		{
+			"path": "hexagon-shared"
+		}
+	]
+}

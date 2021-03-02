@@ -1,0 +1,3371 @@
+   Compiling parking_lot_core v0.8.3
+   Compiling signal-hook-registry v1.3.0
+   Compiling mio v0.7.9
+   Compiling num_cpus v1.13.0
+error[E0412]: cannot find type `cpu_set_t` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/num_cpus-1.13.0/src/linux.rs:40:24
+   |
+40 |     let mut set: libc::cpu_set_t = unsafe { mem::zeroed() };
+   |                        ^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find function `sched_getaffinity` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/num_cpus-1.13.0/src/linux.rs:41:23
+   |
+41 |     if unsafe { libc::sched_getaffinity(0, mem::size_of::<libc::cpu_set_t>(), &mut set) } == 0 {
+   |                       ^^^^^^^^^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `cpu_set_t` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/num_cpus-1.13.0/src/linux.rs:41:65
+   |
+41 |     if unsafe { libc::sched_getaffinity(0, mem::size_of::<libc::cpu_set_t>(), &mut set) } == 0 {
+   |                                                                 ^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `CPU_SETSIZE` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/num_cpus-1.13.0/src/linux.rs:43:27
+   |
+43 |         for i in 0..libc::CPU_SETSIZE as usize {
+   |                           ^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find function, tuple struct or tuple variant `CPU_ISSET` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/num_cpus-1.13.0/src/linux.rs:44:31
+   |
+44 |             if unsafe { libc::CPU_ISSET(i, &set) } {
+   |                               ^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find function `sysconf` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/num_cpus-1.13.0/src/linux.rs:50:35
+   |
+50 |         let cpus = unsafe { libc::sysconf(libc::_SC_NPROCESSORS_ONLN) };
+   |                                   ^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `_SC_NPROCESSORS_ONLN` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/num_cpus-1.13.0/src/linux.rs:50:49
+   |
+50 |         let cpus = unsafe { libc::sysconf(libc::_SC_NPROCESSORS_ONLN) };
+   |                                                 ^^^^^^^^^^^^^^^^^^^^ not found in `libc`
+
+error[E0432]: unresolved imports `libc::c_int`, `libc::c_void`, `libc::sigaction`, `libc::siginfo_t`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/signal-hook-registry-1.3.0/src/lib.rs:78:12
+   |
+78 | use libc::{c_int, c_void, sigaction, siginfo_t};
+   |            ^^^^^  ^^^^^^  ^^^^^^^^^  ^^^^^^^^^ no `siginfo_t` in the root
+   |            |      |       |
+   |            |      |       no `sigaction` in the root
+   |            |      no `c_void` in the root
+   |            no `c_int` in the root
+
+error[E0432]: unresolved imports `libc::SIGFPE`, `libc::SIGILL`, `libc::SIGKILL`, `libc::SIGSEGV`, `libc::SIGSTOP`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/signal-hook-registry-1.3.0/src/lib.rs:83:12
+   |
+83 | use libc::{SIGFPE, SIGILL, SIGKILL, SIGSEGV, SIGSTOP};
+   |            ^^^^^^  ^^^^^^  ^^^^^^^  ^^^^^^^  ^^^^^^^ no `SIGSTOP` in the root
+   |            |       |       |        |
+   |            |       |       |        no `SIGSEGV` in the root
+   |            |       |       no `SIGKILL` in the root
+   |            |       no `SIGILL` in the root
+   |            no `SIGFPE` in the root
+
+error: aborting due to 7 previous errors
+
+Some errors have detailed explanations: E0412, E0425.
+For more information about an error, try `rustc --explain E0412`.
+error: could not compile `num_cpus`
+
+To learn more, run the command again with --verbose.
+warning: build failed, waiting for other jobs to finish...
+error[E0425]: cannot find function `abort` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/signal-hook-registry-1.3.0/src/half_lock.rs:145:28
+    |
+145 |             unsafe { libc::abort() };
+    |                            ^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+35  | use std::intrinsics::abort;
+    |
+35  | use std::process::abort;
+    |
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/signal-hook-registry-1.3.0/src/lib.rs:158:26
+    |
+158 |     fn new(signal: libc::c_int) -> Result<Self, Error> {
+    |                          ^^^^^ not found in `libc`
+    |
+help: consider importing this type alias
+    |
+65  | use std::os::raw::c_int;
+    |
+
+error[E0412]: cannot find type `sigaction` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/signal-hook-registry-1.3.0/src/lib.rs:160:28
+    |
+160 |         let mut new: libc::sigaction = unsafe { mem::zeroed() };
+    |                            ^^^^^^^^^ not found in `libc`
+    |
+help: consider importing this struct
+    |
+65  | use half_lock::thread::imp::stack_overflow::imp::sigaction;
+    |
+
+error[E0425]: cannot find value `SA_RESTART` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/signal-hook-registry-1.3.0/src/lib.rs:165:27
+    |
+165 |         let flags = libc::SA_RESTART | libc::SA_NOCLDSTOP;
+    |                           ^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `SA_NOCLDSTOP` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/signal-hook-registry-1.3.0/src/lib.rs:165:46
+    |
+165 |         let flags = libc::SA_RESTART | libc::SA_NOCLDSTOP;
+    |                                              ^^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `SA_SIGINFO` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/signal-hook-registry-1.3.0/src/lib.rs:168:25
+    |
+168 |         siginfo = libc::SA_SIGINFO as _;
+    |                         ^^^^^^^^^^ not found in `libc`
+    |
+help: consider importing this constant
+    |
+65  | use half_lock::thread::imp::stack_overflow::imp::SA_SIGINFO;
+    |
+
+error[E0412]: cannot find type `sigaction` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/signal-hook-registry-1.3.0/src/lib.rs:172:28
+    |
+172 |         let mut old: libc::sigaction = unsafe { mem::zeroed() };
+    |                            ^^^^^^^^^ not found in `libc`
+    |
+help: consider importing this struct
+    |
+65  | use half_lock::thread::imp::stack_overflow::imp::sigaction;
+    |
+
+error[E0425]: cannot find function `sigaction` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/signal-hook-registry-1.3.0/src/lib.rs:174:27
+    |
+174 |         if unsafe { libc::sigaction(signal, &new, &mut old) } != 0 {
+    |                           ^^^^^^^^^ not found in `libc`
+    |
+help: consider importing this function
+    |
+65  | use half_lock::thread::imp::stack_overflow::imp::sigaction;
+    |
+
+error[E0412]: cannot find type `sigaction` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/signal-hook-registry-1.3.0/src/lib.rs:212:28
+    |
+212 |         let mut old: libc::sigaction = unsafe { mem::zeroed() };
+    |                            ^^^^^^^^^ not found in `libc`
+    |
+help: consider importing this struct
+    |
+65  | use half_lock::thread::imp::stack_overflow::imp::sigaction;
+    |
+
+error[E0425]: cannot find function `sigaction` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/signal-hook-registry-1.3.0/src/lib.rs:214:27
+    |
+214 |         if unsafe { libc::sigaction(signal, ptr::null(), &mut old) } != 0 {
+    |                           ^^^^^^^^^ not found in `libc`
+    |
+help: consider importing this function
+    |
+65  | use half_lock::thread::imp::stack_overflow::imp::sigaction;
+    |
+
+error[E0425]: cannot find value `SIG_DFL` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/signal-hook-registry-1.3.0/src/lib.rs:236:39
+    |
+236 |         if fptr != 0 && fptr != libc::SIG_DFL && fptr != libc::SIG_IGN {
+    |                                       ^^^^^^^ not found in `libc`
+    |
+help: consider importing this constant
+    |
+65  | use half_lock::thread::imp::stack_overflow::imp::SIG_DFL;
+    |
+
+error[E0425]: cannot find value `SIG_IGN` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/signal-hook-registry-1.3.0/src/lib.rs:236:64
+    |
+236 |         if fptr != 0 && fptr != libc::SIG_DFL && fptr != libc::SIG_IGN {
+    |                                                                ^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `SA_SIGINFO` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/signal-hook-registry-1.3.0/src/lib.rs:246:29
+    |
+246 |             siginfo = libc::SA_SIGINFO as _;
+    |                             ^^^^^^^^^^ not found in `libc`
+    |
+help: consider importing this constant
+    |
+65  | use half_lock::thread::imp::stack_overflow::imp::SA_SIGINFO;
+    |
+
+error[E0425]: cannot find function `write` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/signal-hook-registry-1.3.0/src/lib.rs:360:23
+    |
+360 |                 libc::write(2, MSG.as_ptr() as *const _, MSG.len());
+    |                       ^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+65  | use ptr::write;
+    |
+65  | use std::fmt::write;
+    |
+65  | use std::fs::write;
+    |
+
+error[E0425]: cannot find function `abort` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/signal-hook-registry-1.3.0/src/lib.rs:361:23
+    |
+361 |                 libc::abort();
+    |                       ^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+65  | use std::intrinsics::abort;
+    |
+65  | use std::process::abort;
+    |
+
+error[E0432]: unresolved imports `libc::EPOLLET`, `libc::EPOLLIN`, `libc::EPOLLOUT`, `libc::EPOLLRDHUP`
+ --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:3:12
+  |
+3 | use libc::{EPOLLET, EPOLLIN, EPOLLOUT, EPOLLRDHUP};
+  |            ^^^^^^^  ^^^^^^^  ^^^^^^^^  ^^^^^^^^^^ no `EPOLLRDHUP` in the root
+  |            |        |        |
+  |            |        |        no `EPOLLOUT` in the root
+  |            |        no `EPOLLIN` in the root
+  |            no `EPOLLET` in the root
+
+error[E0432]: unresolved import `libc::TCP_KEEPIDLE`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:23:5
+   |
+23 | use libc::TCP_KEEPIDLE as KEEPALIVE_TIME;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `TCP_KEEPIDLE` in the root
+
+error[E0412]: cannot find type `c_long` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.8.3/src/thread_parker/linux.rs:23:24
+   |
+23 | type tv_nsec_t = libc::c_long;
+   |                        ^^^^^^ not found in `libc`
+   |
+help: consider importing one of these items
+   |
+8  | use crate::thread_parker::imp::thread::thread::env::sys::platform::raw::arch::c_long;
+   |
+8  | use std::os::raw::c_long;
+   |
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.8.3/src/thread_parker/linux.rs:25:21
+   |
+25 | fn errno() -> libc::c_int {
+   |                     ^^^^^ not found in `libc`
+   |
+help: consider importing one of these items
+   |
+8  | use crate::thread_parker::imp::thread::thread::env::os_imp::c_int;
+   |
+8  | use crate::thread_parker::imp::thread::thread::env::sys::platform::raw::arch::c_int;
+   |
+8  | use std::os::raw::c_int;
+   |
+
+error[E0425]: cannot find function `__errno_location` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.8.3/src/thread_parker/linux.rs:28:16
+   |
+28 |         *libc::__errno_location()
+   |                ^^^^^^^^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `time_t` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.8.3/src/thread_parker/linux.rs:78:40
+   |
+78 |             if diff.as_secs() as libc::time_t as u64 != diff.as_secs() {
+   |                                        ^^^^^^ not found in `libc`
+   |
+help: consider importing one of these items
+   |
+8  | use crate::thread_parker::imp::thread::thread::env::sys::platform::raw::time_t;
+   |
+8  | use std::os::unix::raw::time_t;
+   |
+
+error[E0422]: cannot find struct, variant or union type `timespec` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.8.3/src/thread_parker/linux.rs:83:28
+   |
+83 |             let ts = libc::timespec {
+   |                            ^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `time_t` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.8.3/src/thread_parker/linux.rs:84:49
+   |
+84 |                 tv_sec: diff.as_secs() as libc::time_t,
+   |                                                 ^^^^^^ not found in `libc`
+   |
+help: consider importing one of these items
+   |
+8  | use crate::thread_parker::imp::thread::thread::env::sys::platform::raw::time_t;
+   |
+8  | use std::os::unix::raw::time_t;
+   |
+
+error[E0412]: cannot find type `timespec` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.8.3/src/thread_parker/linux.rs:106:43
+    |
+106 |     fn futex_wait(&self, ts: Option<libc::timespec>) {
+    |                                           ^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find function `syscall` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.8.3/src/thread_parker/linux.rs:112:19
+    |
+112 |             libc::syscall(
+    |                   ^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `SYS_futex` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.8.3/src/thread_parker/linux.rs:113:23
+    |
+113 |                 libc::SYS_futex,
+    |                       ^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `FUTEX_WAIT` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.8.3/src/thread_parker/linux.rs:115:23
+    |
+115 |                 libc::FUTEX_WAIT | libc::FUTEX_PRIVATE_FLAG,
+    |                       ^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `FUTEX_PRIVATE_FLAG` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.8.3/src/thread_parker/linux.rs:115:42
+    |
+115 |                 libc::FUTEX_WAIT | libc::FUTEX_PRIVATE_FLAG,
+    |                                          ^^^^^^^^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `EINTR` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.8.3/src/thread_parker/linux.rs:123:34
+    |
+123 |                 errno() == libc::EINTR
+    |                                  ^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `EAGAIN` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.8.3/src/thread_parker/linux.rs:124:41
+    |
+124 |                     || errno() == libc::EAGAIN
+    |                                         ^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `ETIMEDOUT` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.8.3/src/thread_parker/linux.rs:125:58
+    |
+125 |                     || (ts.is_some() && errno() == libc::ETIMEDOUT)
+    |                                                          ^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find function `syscall` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.8.3/src/thread_parker/linux.rs:140:23
+    |
+140 |         let r = libc::syscall(
+    |                       ^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `SYS_futex` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.8.3/src/thread_parker/linux.rs:141:19
+    |
+141 |             libc::SYS_futex,
+    |                   ^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `FUTEX_WAKE` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.8.3/src/thread_parker/linux.rs:143:19
+    |
+143 |             libc::FUTEX_WAKE | libc::FUTEX_PRIVATE_FLAG,
+    |                   ^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `FUTEX_PRIVATE_FLAG` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.8.3/src/thread_parker/linux.rs:143:38
+    |
+143 |             libc::FUTEX_WAKE | libc::FUTEX_PRIVATE_FLAG,
+    |                                      ^^^^^^^^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `EFAULT` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.8.3/src/thread_parker/linux.rs:148:45
+    |
+148 |             debug_assert_eq!(errno(), libc::EFAULT);
+    |                                             ^^^^^^ not found in `libc`
+
+error[E0282]: type annotations needed
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/signal-hook-registry-1.3.0/src/lib.rs:287:30
+    |
+287 |                     signals: HashMap::new(),
+    |                              ^^^^^^^^^^^^ cannot infer type for type parameter `K`
+
+error[E0609]: no field `prev` on type `&_`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/signal-hook-registry-1.3.0/src/lib.rs:348:23
+    |
+348 |         unsafe { slot.prev.execute(sig, info, data) };
+    |                       ^^^^
+
+error[E0609]: no field `actions` on type `&mut _`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/signal-hook-registry-1.3.0/src/lib.rs:582:40
+    |
+582 |             assert!(occupied.get_mut().actions.insert(id, action).is_none());
+    |                                        ^^^^^^^
+
+error: aborting due to 20 previous errors
+
+Some errors have detailed explanations: E0282, E0412, E0425, E0432, E0609.
+For more information about an error, try `rustc --explain E0282`.
+error: aborting due to 19 previous errors
+
+Some errors have detailed explanations: E0412, E0422, E0425.
+For more information about an error, try `rustc --explain E0412`.
+error[E0425]: cannot find value `EPOLL_CLOEXEC` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:32:26
+   |
+32 |         let flag = libc::EPOLL_CLOEXEC;
+   |                          ^^^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find function `epoll_create1` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:34:18
+   |
+34 |         syscall!(epoll_create1(flag)).map(|ep| Selector {
+   |                  ^^^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find function `dup` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:44:18
+   |
+44 |         syscall!(dup(self.ep)).map(|ep| Selector {
+   |                  ^^^ not found in `libc`
+
+error[E0433]: failed to resolve: could not find `c_int` in `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:61:46
+   |
+61 |         const MAX_SAFE_TIMEOUT: u128 = libc::c_int::max_value() as u128;
+   |                                              ^^^^^ not found in `libc`
+   |
+help: consider importing one of these items
+   |
+1  | use crate::net::udp::net::udp::net_imp::c_int;
+   |
+1  | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+   |
+1  | use std::os::raw::c_int;
+   |
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:64:75
+   |
+64 |             .map(|to| cmp::min(to.as_millis(), MAX_SAFE_TIMEOUT) as libc::c_int)
+   |                                                                           ^^^^^ not found in `libc`
+   |
+help: consider importing one of these items
+   |
+1  | use crate::net::udp::net::udp::net_imp::c_int;
+   |
+1  | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+   |
+1  | use std::os::raw::c_int;
+   |
+
+error[E0425]: cannot find function `epoll_wait` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:68:18
+   |
+68 |         syscall!(epoll_wait(
+   |                  ^^^^^^^^^^ not found in `libc`
+
+error[E0422]: cannot find struct, variant or union type `epoll_event` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:82:31
+   |
+82 |         let mut event = libc::epoll_event {
+   |                               ^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find function `epoll_ctl` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:87:18
+   |
+87 |         syscall!(epoll_ctl(self.ep, libc::EPOLL_CTL_ADD, fd, &mut event)).map(|_| ())
+   |                  ^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `EPOLL_CTL_ADD` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:87:43
+   |
+87 |         syscall!(epoll_ctl(self.ep, libc::EPOLL_CTL_ADD, fd, &mut event)).map(|_| ())
+   |                                           ^^^^^^^^^^^^^ not found in `libc`
+
+error[E0422]: cannot find struct, variant or union type `epoll_event` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:91:31
+   |
+91 |         let mut event = libc::epoll_event {
+   |                               ^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find function `epoll_ctl` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:96:18
+   |
+96 |         syscall!(epoll_ctl(self.ep, libc::EPOLL_CTL_MOD, fd, &mut event)).map(|_| ())
+   |                  ^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `EPOLL_CTL_MOD` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:96:43
+   |
+96 |         syscall!(epoll_ctl(self.ep, libc::EPOLL_CTL_MOD, fd, &mut event)).map(|_| ())
+   |                                           ^^^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find function `epoll_ctl` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:100:18
+    |
+100 |         syscall!(epoll_ctl(self.ep, libc::EPOLL_CTL_DEL, fd, ptr::null_mut())).map(|_| ())
+    |                  ^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `EPOLL_CTL_DEL` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:100:43
+    |
+100 |         syscall!(epoll_ctl(self.ep, libc::EPOLL_CTL_DEL, fd, ptr::null_mut())).map(|_| ())
+    |                                           ^^^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find function `close` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:126:36
+    |
+126 |         if let Err(err) = syscall!(close(self.ep)) {
+    |                                    ^^^^^ not found in `libc`
+    |
+help: consider importing this function
+    |
+1   | use crate::sys::tcp::close;
+    |
+
+error[E0412]: cannot find type `epoll_event` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:146:24
+    |
+146 | pub type Event = libc::epoll_event;
+    |                        ^^^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:160:32
+    |
+160 |         (event.events as libc::c_int & libc::EPOLLIN) != 0
+    |                                ^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+150 |     use crate::net::udp::net::udp::net_imp::c_int;
+    |
+150 |     use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+    |
+150 |     use std::os::raw::c_int;
+    |
+
+error[E0425]: cannot find value `EPOLLIN` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:160:46
+    |
+160 |         (event.events as libc::c_int & libc::EPOLLIN) != 0
+    |                                              ^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:161:39
+    |
+161 |             || (event.events as libc::c_int & libc::EPOLLPRI) != 0
+    |                                       ^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+150 |     use crate::net::udp::net::udp::net_imp::c_int;
+    |
+150 |     use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+    |
+150 |     use std::os::raw::c_int;
+    |
+
+error[E0425]: cannot find value `EPOLLPRI` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:161:53
+    |
+161 |             || (event.events as libc::c_int & libc::EPOLLPRI) != 0
+    |                                                     ^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:165:32
+    |
+165 |         (event.events as libc::c_int & libc::EPOLLOUT) != 0
+    |                                ^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+150 |     use crate::net::udp::net::udp::net_imp::c_int;
+    |
+150 |     use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+    |
+150 |     use std::os::raw::c_int;
+    |
+
+error[E0425]: cannot find value `EPOLLOUT` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:165:46
+    |
+165 |         (event.events as libc::c_int & libc::EPOLLOUT) != 0
+    |                                              ^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:169:32
+    |
+169 |         (event.events as libc::c_int & libc::EPOLLERR) != 0
+    |                                ^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+150 |     use crate::net::udp::net::udp::net_imp::c_int;
+    |
+150 |     use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+    |
+150 |     use std::os::raw::c_int;
+    |
+
+error[E0425]: cannot find value `EPOLLERR` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:169:46
+    |
+169 |         (event.events as libc::c_int & libc::EPOLLERR) != 0
+    |                                              ^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:174:31
+    |
+174 |         event.events as libc::c_int & libc::EPOLLHUP != 0
+    |                               ^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+150 |     use crate::net::udp::net::udp::net_imp::c_int;
+    |
+150 |     use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+    |
+150 |     use std::os::raw::c_int;
+    |
+
+error[E0425]: cannot find value `EPOLLHUP` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:174:45
+    |
+174 |         event.events as libc::c_int & libc::EPOLLHUP != 0
+    |                                             ^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:176:39
+    |
+176 |             || (event.events as libc::c_int & libc::EPOLLIN != 0
+    |                                       ^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+150 |     use crate::net::udp::net::udp::net_imp::c_int;
+    |
+150 |     use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+    |
+150 |     use std::os::raw::c_int;
+    |
+
+error[E0425]: cannot find value `EPOLLIN` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:176:53
+    |
+176 |             || (event.events as libc::c_int & libc::EPOLLIN != 0
+    |                                                     ^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:177:42
+    |
+177 |                 && event.events as libc::c_int & libc::EPOLLRDHUP != 0)
+    |                                          ^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+150 |     use crate::net::udp::net::udp::net_imp::c_int;
+    |
+150 |     use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+    |
+150 |     use std::os::raw::c_int;
+    |
+
+error[E0425]: cannot find value `EPOLLRDHUP` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:177:56
+    |
+177 |                 && event.events as libc::c_int & libc::EPOLLRDHUP != 0)
+    |                                                        ^^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:182:31
+    |
+182 |         event.events as libc::c_int & libc::EPOLLHUP != 0
+    |                               ^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+150 |     use crate::net::udp::net::udp::net_imp::c_int;
+    |
+150 |     use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+    |
+150 |     use std::os::raw::c_int;
+    |
+
+error[E0425]: cannot find value `EPOLLHUP` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:182:45
+    |
+182 |         event.events as libc::c_int & libc::EPOLLHUP != 0
+    |                                             ^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:184:39
+    |
+184 |             || (event.events as libc::c_int & libc::EPOLLOUT != 0
+    |                                       ^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+150 |     use crate::net::udp::net::udp::net_imp::c_int;
+    |
+150 |     use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+    |
+150 |     use std::os::raw::c_int;
+    |
+
+error[E0425]: cannot find value `EPOLLOUT` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:184:53
+    |
+184 |             || (event.events as libc::c_int & libc::EPOLLOUT != 0
+    |                                                     ^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:185:42
+    |
+185 |                 && event.events as libc::c_int & libc::EPOLLERR != 0)
+    |                                          ^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+150 |     use crate::net::udp::net::udp::net_imp::c_int;
+    |
+150 |     use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+    |
+150 |     use std::os::raw::c_int;
+    |
+
+error[E0425]: cannot find value `EPOLLERR` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:185:56
+    |
+185 |                 && event.events as libc::c_int & libc::EPOLLERR != 0)
+    |                                                        ^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:187:38
+    |
+187 |             || event.events as libc::c_int == libc::EPOLLERR
+    |                                      ^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+150 |     use crate::net::udp::net::udp::net_imp::c_int;
+    |
+150 |     use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+    |
+150 |     use std::os::raw::c_int;
+    |
+
+error[E0425]: cannot find value `EPOLLERR` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:187:53
+    |
+187 |             || event.events as libc::c_int == libc::EPOLLERR
+    |                                                     ^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:191:32
+    |
+191 |         (event.events as libc::c_int & libc::EPOLLPRI) != 0
+    |                                ^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+150 |     use crate::net::udp::net::udp::net_imp::c_int;
+    |
+150 |     use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+    |
+150 |     use std::os::raw::c_int;
+    |
+
+error[E0425]: cannot find value `EPOLLPRI` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:191:46
+    |
+191 |         (event.events as libc::c_int & libc::EPOLLPRI) != 0
+    |                                              ^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:206:49
+    |
+206 |         fn check_events(got: &u32, want: &libc::c_int) -> bool {
+    |                                                 ^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+150 |     use crate::net::udp::net::udp::net_imp::c_int;
+    |
+150 |     use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+    |
+150 |     use std::os::raw::c_int;
+    |
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:207:28
+    |
+207 |             (*got as libc::c_int & want) != 0
+    |                            ^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+150 |     use crate::net::udp::net::udp::net_imp::c_int;
+    |
+150 |     use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+    |
+150 |     use std::os::raw::c_int;
+    |
+
+error[E0425]: cannot find value `EPOLLIN` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:212:19
+    |
+212 |             libc::EPOLLIN,
+    |                   ^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `EPOLLPRI` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:213:19
+    |
+213 |             libc::EPOLLPRI,
+    |                   ^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `EPOLLOUT` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:214:19
+    |
+214 |             libc::EPOLLOUT,
+    |                   ^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `EPOLLRDNORM` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:215:19
+    |
+215 |             libc::EPOLLRDNORM,
+    |                   ^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `EPOLLRDBAND` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:216:19
+    |
+216 |             libc::EPOLLRDBAND,
+    |                   ^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `EPOLLWRNORM` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:217:19
+    |
+217 |             libc::EPOLLWRNORM,
+    |                   ^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `EPOLLWRBAND` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:218:19
+    |
+218 |             libc::EPOLLWRBAND,
+    |                   ^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `EPOLLMSG` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:219:19
+    |
+219 |             libc::EPOLLMSG,
+    |                   ^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `EPOLLERR` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:220:19
+    |
+220 |             libc::EPOLLERR,
+    |                   ^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `EPOLLHUP` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:221:19
+    |
+221 |             libc::EPOLLHUP,
+    |                   ^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `EPOLLET` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:222:19
+    |
+222 |             libc::EPOLLET,
+    |                   ^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `EPOLLRDHUP` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:223:19
+    |
+223 |             libc::EPOLLRDHUP,
+    |                   ^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `EPOLLONESHOT` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:224:19
+    |
+224 |             libc::EPOLLONESHOT,
+    |                   ^^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `EPOLLEXCLUSIVE` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:226:19
+    |
+226 |             libc::EPOLLEXCLUSIVE,
+    |                   ^^^^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `EPOLLWAKEUP` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:228:19
+    |
+228 |             libc::EPOLLWAKEUP,
+    |                   ^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `EPOLL_CLOEXEC` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/selector/epoll.rs:229:19
+    |
+229 |             libc::EPOLL_CLOEXEC,
+    |                   ^^^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find function `eventfd` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/waker.rs:23:22
+   |
+23 |             syscall!(eventfd(0, libc::EFD_CLOEXEC | libc::EFD_NONBLOCK)).and_then(|fd| {
+   |                      ^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `EFD_CLOEXEC` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/waker.rs:23:39
+   |
+23 |             syscall!(eventfd(0, libc::EFD_CLOEXEC | libc::EFD_NONBLOCK)).and_then(|fd| {
+   |                                       ^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `EFD_NONBLOCK` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/waker.rs:23:59
+   |
+23 |             syscall!(eventfd(0, libc::EFD_CLOEXEC | libc::EFD_NONBLOCK)).and_then(|fd| {
+   |                                                           ^^^^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+ --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/net.rs:5:66
+  |
+5 | pub(crate) fn new_ip_socket(addr: SocketAddr, socket_type: libc::c_int) -> io::Result<libc::c_int> {
+  |                                                                  ^^^^^ not found in `libc`
+  |
+help: consider importing one of these items
+  |
+1 | use crate::net::udp::net::udp::net_imp::c_int;
+  |
+1 | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+  |
+1 | use std::os::raw::c_int;
+  |
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+ --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/net.rs:5:93
+  |
+5 | pub(crate) fn new_ip_socket(addr: SocketAddr, socket_type: libc::c_int) -> io::Result<libc::c_int> {
+  |                                                                                             ^^^^^ not found in `libc`
+  |
+help: consider importing one of these items
+  |
+1 | use crate::net::udp::net::udp::net_imp::c_int;
+  |
+1 | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+  |
+1 | use std::os::raw::c_int;
+  |
+
+error[E0425]: cannot find value `AF_INET` in crate `libc`
+ --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/net.rs:7:37
+  |
+7 |         SocketAddr::V4(..) => libc::AF_INET,
+  |                                     ^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `AF_INET6` in crate `libc`
+ --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/net.rs:8:37
+  |
+8 |         SocketAddr::V6(..) => libc::AF_INET6,
+  |                                     ^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/net.rs:15:40
+   |
+15 | pub(crate) fn new_socket(domain: libc::c_int, socket_type: libc::c_int) -> io::Result<libc::c_int> {
+   |                                        ^^^^^ not found in `libc`
+   |
+help: consider importing one of these items
+   |
+1  | use crate::net::udp::net::udp::net_imp::c_int;
+   |
+1  | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+   |
+1  | use std::os::raw::c_int;
+   |
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/net.rs:15:66
+   |
+15 | pub(crate) fn new_socket(domain: libc::c_int, socket_type: libc::c_int) -> io::Result<libc::c_int> {
+   |                                                                  ^^^^^ not found in `libc`
+   |
+help: consider importing one of these items
+   |
+1  | use crate::net::udp::net::udp::net_imp::c_int;
+   |
+1  | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+   |
+1  | use std::os::raw::c_int;
+   |
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/net.rs:15:93
+   |
+15 | pub(crate) fn new_socket(domain: libc::c_int, socket_type: libc::c_int) -> io::Result<libc::c_int> {
+   |                                                                                             ^^^^^ not found in `libc`
+   |
+help: consider importing one of these items
+   |
+1  | use crate::net::udp::net::udp::net_imp::c_int;
+   |
+1  | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+   |
+1  | use std::os::raw::c_int;
+   |
+
+error[E0425]: cannot find value `SOCK_NONBLOCK` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/net.rs:25:43
+   |
+25 |     let socket_type = socket_type | libc::SOCK_NONBLOCK | libc::SOCK_CLOEXEC;
+   |                                           ^^^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `SOCK_CLOEXEC` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/net.rs:25:65
+   |
+25 |     let socket_type = socket_type | libc::SOCK_NONBLOCK | libc::SOCK_CLOEXEC;
+   |                                                                 ^^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find function `socket` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/net.rs:29:27
+   |
+29 |     let socket = syscall!(socket(domain, socket_type, 0));
+   |                           ^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `sockaddr_in` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/net.rs:69:15
+   |
+69 |     v4: libc::sockaddr_in,
+   |               ^^^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `sockaddr_in6` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/net.rs:70:15
+   |
+70 |     v6: libc::sockaddr_in6,
+   |               ^^^^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `sockaddr` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/net.rs:74:49
+   |
+74 |     pub(crate) fn as_ptr(&self) -> *const libc::sockaddr {
+   |                                                 ^^^^^^^^ not found in `libc`
+   |
+help: consider importing this struct
+   |
+1  | use crate::net::uds::stream::net::raw_fd::sys::net::sockaddr;
+   |
+
+error[E0412]: cannot find type `sockaddr` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/net.rs:75:42
+   |
+75 |         self as *const _ as *const libc::sockaddr
+   |                                          ^^^^^^^^ not found in `libc`
+   |
+help: consider importing this struct
+   |
+1  | use crate::net::uds::stream::net::raw_fd::sys::net::sockaddr;
+   |
+
+error[E0412]: cannot find type `socklen_t` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/net.rs:80:73
+   |
+80 | pub(crate) fn socket_addr(addr: &SocketAddr) -> (SocketAddrCRepr, libc::socklen_t) {
+   |                                                                         ^^^^^^^^^ not found in `libc`
+   |
+help: consider importing this type alias
+   |
+1  | use crate::net::uds::stream::net::stream::ucred::impl_linux::socklen_t;
+   |
+
+error[E0422]: cannot find struct, variant or union type `in_addr` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/net.rs:85:34
+   |
+85 |             let sin_addr = libc::in_addr {
+   |                                  ^^^^^^^ not found in `libc`
+
+error[E0422]: cannot find struct, variant or union type `sockaddr_in` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/net.rs:89:37
+   |
+89 |             let sockaddr_in = libc::sockaddr_in {
+   |                                     ^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `AF_INET` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/net.rs:90:35
+   |
+90 |                 sin_family: libc::AF_INET as libc::sa_family_t,
+   |                                   ^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `sa_family_t` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/net.rs:90:52
+   |
+90 |                 sin_family: libc::AF_INET as libc::sa_family_t,
+   |                                                    ^^^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `sockaddr_in` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/net.rs:106:43
+    |
+106 |             let socklen = size_of::<libc::sockaddr_in>() as libc::socklen_t;
+    |                                           ^^^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `socklen_t` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/net.rs:106:67
+    |
+106 |             let socklen = size_of::<libc::sockaddr_in>() as libc::socklen_t;
+    |                                                                   ^^^^^^^^^ not found in `libc`
+    |
+help: consider importing this type alias
+    |
+1   | use crate::net::uds::stream::net::stream::ucred::impl_linux::socklen_t;
+    |
+
+error[E0422]: cannot find struct, variant or union type `sockaddr_in6` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/net.rs:110:38
+    |
+110 |             let sockaddr_in6 = libc::sockaddr_in6 {
+    |                                      ^^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `AF_INET6` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/net.rs:111:36
+    |
+111 |                 sin6_family: libc::AF_INET6 as libc::sa_family_t,
+    |                                    ^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `sa_family_t` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/net.rs:111:54
+    |
+111 |                 sin6_family: libc::AF_INET6 as libc::sa_family_t,
+    |                                                      ^^^^^^^^^^^ not found in `libc`
+
+error[E0422]: cannot find struct, variant or union type `in6_addr` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/net.rs:113:34
+    |
+113 |                 sin6_addr: libc::in6_addr {
+    |                                  ^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `sockaddr_in6` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/net.rs:132:43
+    |
+132 |             let socklen = size_of::<libc::sockaddr_in6>() as libc::socklen_t;
+    |                                           ^^^^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `socklen_t` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/net.rs:132:68
+    |
+132 |             let socklen = size_of::<libc::sockaddr_in6>() as libc::socklen_t;
+    |                                                                    ^^^^^^^^^ not found in `libc`
+    |
+help: consider importing this type alias
+    |
+1   | use crate::net::uds::stream::net::stream::ucred::impl_linux::socklen_t;
+    |
+
+error[E0412]: cannot find type `sockaddr_storage` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/net.rs:145:27
+    |
+145 |     storage: *const libc::sockaddr_storage,
+    |                           ^^^^^^^^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/net.rs:147:41
+    |
+147 |     match (*storage).ss_family as libc::c_int {
+    |                                         ^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+1   | use crate::net::udp::net::udp::net_imp::c_int;
+    |
+1   | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+    |
+1   | use std::os::raw::c_int;
+    |
+
+error[E0531]: cannot find unit struct, unit variant or constant `AF_INET` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/net.rs:148:15
+    |
+148 |         libc::AF_INET => {
+    |               ^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `sockaddr_in` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/net.rs:150:30
+    |
+150 |             let addr: &libc::sockaddr_in = &*(storage as *const libc::sockaddr_in);
+    |                              ^^^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `sockaddr_in` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/net.rs:150:71
+    |
+150 |             let addr: &libc::sockaddr_in = &*(storage as *const libc::sockaddr_in);
+    |                                                                       ^^^^^^^^^^^ not found in `libc`
+
+error[E0531]: cannot find unit struct, unit variant or constant `AF_INET6` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/net.rs:155:15
+    |
+155 |         libc::AF_INET6 => {
+    |               ^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `sockaddr_in6` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/net.rs:157:30
+    |
+157 |             let addr: &libc::sockaddr_in6 = &*(storage as *const libc::sockaddr_in6);
+    |                              ^^^^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `sockaddr_in6` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/net.rs:157:72
+    |
+157 |             let addr: &libc::sockaddr_in6 = &*(storage as *const libc::sockaddr_in6);
+    |                                                                        ^^^^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:24:28
+   |
+24 | pub type TcpSocket = libc::c_int;
+   |                            ^^^^^ not found in `libc`
+   |
+help: consider importing one of these items
+   |
+1  | use crate::net::udp::net::udp::net_imp::c_int;
+   |
+1  | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+   |
+1  | use std::os::raw::c_int;
+   |
+
+error[E0425]: cannot find value `AF_INET` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:27:22
+   |
+27 |     new_socket(libc::AF_INET, libc::SOCK_STREAM)
+   |                      ^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `SOCK_STREAM` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:27:37
+   |
+27 |     new_socket(libc::AF_INET, libc::SOCK_STREAM)
+   |                                     ^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `AF_INET6` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:31:22
+   |
+31 |     new_socket(libc::AF_INET6, libc::SOCK_STREAM)
+   |                      ^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `SOCK_STREAM` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:31:38
+   |
+31 |     new_socket(libc::AF_INET6, libc::SOCK_STREAM)
+   |                                      ^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find function `bind` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:36:14
+   |
+36 |     syscall!(bind(socket, raw_addr.as_ptr(), raw_addr_length))?;
+   |              ^^^^ not found in `libc`
+   |
+help: consider importing one of these items
+   |
+1  | use crate::sys::udp::bind;
+   |
+1  | use crate::sys::uds::datagram::bind;
+   |
+1  | use crate::sys::uds::listener::bind;
+   |
+
+error[E0425]: cannot find function `connect` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:43:20
+   |
+43 |     match syscall!(connect(socket, raw_addr.as_ptr(), raw_addr_length)) {
+   |                    ^^^^^^^ not found in `libc`
+   |
+help: consider importing this function
+   |
+1  | use crate::sys::uds::stream::connect;
+   |
+
+error[E0425]: cannot find value `EINPROGRESS` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:44:54
+   |
+44 |         Err(err) if err.raw_os_error() != Some(libc::EINPROGRESS) => {
+   |                                                      ^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find function `listen` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:55:14
+   |
+55 |     syscall!(listen(socket, backlog))?;
+   |              ^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:64:20
+   |
+64 |     let val: libc::c_int = if reuseaddr { 1 } else { 0 };
+   |                    ^^^^^ not found in `libc`
+   |
+help: consider importing one of these items
+   |
+1  | use crate::net::udp::net::udp::net_imp::c_int;
+   |
+1  | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+   |
+1  | use std::os::raw::c_int;
+   |
+
+error[E0425]: cannot find function `setsockopt` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:65:14
+   |
+65 |     syscall!(setsockopt(
+   |              ^^^^^^^^^^ not found in `libc`
+   |
+help: consider importing this function
+   |
+1  | use crate::net::udp::net::udp::net_imp::setsockopt;
+   |
+
+error[E0425]: cannot find value `SOL_SOCKET` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:67:15
+   |
+67 |         libc::SOL_SOCKET,
+   |               ^^^^^^^^^^ not found in `libc`
+   |
+help: consider importing this constant
+   |
+1  | use crate::net::uds::stream::net::stream::ucred::impl_linux::SOL_SOCKET;
+   |
+
+error[E0425]: cannot find value `SO_REUSEADDR` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:68:15
+   |
+68 |         libc::SO_REUSEADDR,
+   |               ^^^^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:69:30
+   |
+69 |         &val as *const libc::c_int as *const libc::c_void,
+   |                              ^^^^^ not found in `libc`
+   |
+help: consider importing one of these items
+   |
+1  | use crate::net::udp::net::udp::net_imp::c_int;
+   |
+1  | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+   |
+1  | use std::os::raw::c_int;
+   |
+
+error[E0412]: cannot find type `c_void` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:69:52
+   |
+69 |         &val as *const libc::c_int as *const libc::c_void,
+   |                                                    ^^^^^^ not found in `libc`
+   |
+help: consider importing one of these items
+   |
+1  | use core::ffi::c_void;
+   |
+1  | use crate::net::udp::net::udp::net_imp::c_void;
+   |
+1  | use std::os::raw::c_void;
+   |
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:70:25
+   |
+70 |         size_of::<libc::c_int>() as libc::socklen_t,
+   |                         ^^^^^ not found in `libc`
+   |
+help: consider importing one of these items
+   |
+1  | use crate::net::udp::net::udp::net_imp::c_int;
+   |
+1  | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+   |
+1  | use std::os::raw::c_int;
+   |
+
+error[E0412]: cannot find type `socklen_t` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:70:43
+   |
+70 |         size_of::<libc::c_int>() as libc::socklen_t,
+   |                                           ^^^^^^^^^ not found in `libc`
+   |
+help: consider importing this type alias
+   |
+1  | use crate::net::uds::stream::net::stream::ucred::impl_linux::socklen_t;
+   |
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:76:27
+   |
+76 |     let mut optval: libc::c_int = 0;
+   |                           ^^^^^ not found in `libc`
+   |
+help: consider importing one of these items
+   |
+1  | use crate::net::udp::net::udp::net_imp::c_int;
+   |
+1  | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+   |
+1  | use std::os::raw::c_int;
+   |
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:77:43
+   |
+77 |     let mut optlen = mem::size_of::<libc::c_int>() as libc::socklen_t;
+   |                                           ^^^^^ not found in `libc`
+   |
+help: consider importing one of these items
+   |
+1  | use crate::net::udp::net::udp::net_imp::c_int;
+   |
+1  | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+   |
+1  | use std::os::raw::c_int;
+   |
+
+error[E0412]: cannot find type `socklen_t` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:77:61
+   |
+77 |     let mut optlen = mem::size_of::<libc::c_int>() as libc::socklen_t;
+   |                                                             ^^^^^^^^^ not found in `libc`
+   |
+help: consider importing this type alias
+   |
+1  | use crate::net::uds::stream::net::stream::ucred::impl_linux::socklen_t;
+   |
+
+error[E0425]: cannot find function `getsockopt` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:79:14
+   |
+79 |     syscall!(getsockopt(
+   |              ^^^^^^^^^^ not found in `libc`
+   |
+help: consider importing one of these items
+   |
+1  | use crate::net::udp::net::udp::net_imp::getsockopt;
+   |
+1  | use crate::net::uds::stream::net::stream::ucred::impl_linux::getsockopt;
+   |
+
+error[E0425]: cannot find value `SOL_SOCKET` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:81:15
+   |
+81 |         libc::SOL_SOCKET,
+   |               ^^^^^^^^^^ not found in `libc`
+   |
+help: consider importing this constant
+   |
+1  | use crate::net::uds::stream::net::stream::ucred::impl_linux::SOL_SOCKET;
+   |
+
+error[E0425]: cannot find value `SO_REUSEADDR` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:82:15
+   |
+82 |         libc::SO_REUSEADDR,
+   |               ^^^^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:92:20
+   |
+92 |     let val: libc::c_int = if reuseport { 1 } else { 0 };
+   |                    ^^^^^ not found in `libc`
+   |
+help: consider importing one of these items
+   |
+1  | use crate::net::udp::net::udp::net_imp::c_int;
+   |
+1  | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+   |
+1  | use std::os::raw::c_int;
+   |
+
+error[E0425]: cannot find function `setsockopt` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:94:14
+   |
+94 |     syscall!(setsockopt(
+   |              ^^^^^^^^^^ not found in `libc`
+   |
+help: consider importing this function
+   |
+1  | use crate::net::udp::net::udp::net_imp::setsockopt;
+   |
+
+error[E0425]: cannot find value `SOL_SOCKET` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:96:15
+   |
+96 |         libc::SOL_SOCKET,
+   |               ^^^^^^^^^^ not found in `libc`
+   |
+help: consider importing this constant
+   |
+1  | use crate::net::uds::stream::net::stream::ucred::impl_linux::SOL_SOCKET;
+   |
+
+error[E0425]: cannot find value `SO_REUSEPORT` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:97:15
+   |
+97 |         libc::SO_REUSEPORT,
+   |               ^^^^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:98:30
+   |
+98 |         &val as *const libc::c_int as *const libc::c_void,
+   |                              ^^^^^ not found in `libc`
+   |
+help: consider importing one of these items
+   |
+1  | use crate::net::udp::net::udp::net_imp::c_int;
+   |
+1  | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+   |
+1  | use std::os::raw::c_int;
+   |
+
+error[E0412]: cannot find type `c_void` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:98:52
+   |
+98 |         &val as *const libc::c_int as *const libc::c_void,
+   |                                                    ^^^^^^ not found in `libc`
+   |
+help: consider importing one of these items
+   |
+1  | use core::ffi::c_void;
+   |
+1  | use crate::net::udp::net::udp::net_imp::c_void;
+   |
+1  | use std::os::raw::c_void;
+   |
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:99:25
+   |
+99 |         size_of::<libc::c_int>() as libc::socklen_t,
+   |                         ^^^^^ not found in `libc`
+   |
+help: consider importing one of these items
+   |
+1  | use crate::net::udp::net::udp::net_imp::c_int;
+   |
+1  | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+   |
+1  | use std::os::raw::c_int;
+   |
+
+error[E0412]: cannot find type `socklen_t` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:99:43
+   |
+99 |         size_of::<libc::c_int>() as libc::socklen_t,
+   |                                           ^^^^^^^^^ not found in `libc`
+   |
+help: consider importing this type alias
+   |
+1  | use crate::net::uds::stream::net::stream::ucred::impl_linux::socklen_t;
+   |
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:106:27
+    |
+106 |     let mut optval: libc::c_int = 0;
+    |                           ^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+1   | use crate::net::udp::net::udp::net_imp::c_int;
+    |
+1   | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+    |
+1   | use std::os::raw::c_int;
+    |
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:107:43
+    |
+107 |     let mut optlen = mem::size_of::<libc::c_int>() as libc::socklen_t;
+    |                                           ^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+1   | use crate::net::udp::net::udp::net_imp::c_int;
+    |
+1   | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+    |
+1   | use std::os::raw::c_int;
+    |
+
+error[E0412]: cannot find type `socklen_t` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:107:61
+    |
+107 |     let mut optlen = mem::size_of::<libc::c_int>() as libc::socklen_t;
+    |                                                             ^^^^^^^^^ not found in `libc`
+    |
+help: consider importing this type alias
+    |
+1   | use crate::net::uds::stream::net::stream::ucred::impl_linux::socklen_t;
+    |
+
+error[E0425]: cannot find function `getsockopt` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:109:14
+    |
+109 |     syscall!(getsockopt(
+    |              ^^^^^^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+1   | use crate::net::udp::net::udp::net_imp::getsockopt;
+    |
+1   | use crate::net::uds::stream::net::stream::ucred::impl_linux::getsockopt;
+    |
+
+error[E0425]: cannot find value `SOL_SOCKET` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:111:15
+    |
+111 |         libc::SOL_SOCKET,
+    |               ^^^^^^^^^^ not found in `libc`
+    |
+help: consider importing this constant
+    |
+1   | use crate::net::uds::stream::net::stream::ucred::impl_linux::SOL_SOCKET;
+    |
+
+error[E0425]: cannot find value `SO_REUSEPORT` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:112:15
+    |
+112 |         libc::SO_REUSEPORT,
+    |               ^^^^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `sockaddr_storage` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:121:25
+    |
+121 |     let mut addr: libc::sockaddr_storage = unsafe { std::mem::zeroed() };
+    |                         ^^^^^^^^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `sockaddr_storage` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:122:38
+    |
+122 |     let mut length = size_of::<libc::sockaddr_storage>() as libc::socklen_t;
+    |                                      ^^^^^^^^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `socklen_t` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:122:67
+    |
+122 |     let mut length = size_of::<libc::sockaddr_storage>() as libc::socklen_t;
+    |                                                                   ^^^^^^^^^ not found in `libc`
+    |
+help: consider importing this type alias
+    |
+1   | use crate::net::uds::stream::net::stream::ucred::impl_linux::socklen_t;
+    |
+
+error[E0425]: cannot find function `getsockname` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:124:14
+    |
+124 |     syscall!(getsockname(
+    |              ^^^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `linger` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:134:20
+    |
+134 |     let val: libc::linger = libc::linger {
+    |                    ^^^^^^ not found in `libc`
+
+error[E0422]: cannot find struct, variant or union type `linger` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:134:35
+    |
+134 |     let val: libc::linger = libc::linger {
+    |                                   ^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:137:47
+    |
+137 |             .map(|dur| dur.as_secs() as libc::c_int)
+    |                                               ^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+1   | use crate::net::udp::net::udp::net_imp::c_int;
+    |
+1   | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+    |
+1   | use std::os::raw::c_int;
+    |
+
+error[E0425]: cannot find function `setsockopt` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:140:14
+    |
+140 |     syscall!(setsockopt(
+    |              ^^^^^^^^^^ not found in `libc`
+    |
+help: consider importing this function
+    |
+1   | use crate::net::udp::net::udp::net_imp::setsockopt;
+    |
+
+error[E0425]: cannot find value `SOL_SOCKET` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:142:15
+    |
+142 |         libc::SOL_SOCKET,
+    |               ^^^^^^^^^^ not found in `libc`
+    |
+help: consider importing this constant
+    |
+1   | use crate::net::uds::stream::net::stream::ucred::impl_linux::SOL_SOCKET;
+    |
+
+error[E0425]: cannot find value `SO_LINGER` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:146:15
+    |
+146 |         libc::SO_LINGER,
+    |               ^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `linger` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:147:30
+    |
+147 |         &val as *const libc::linger as *const libc::c_void,
+    |                              ^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `c_void` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:147:53
+    |
+147 |         &val as *const libc::linger as *const libc::c_void,
+    |                                                     ^^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+1   | use core::ffi::c_void;
+    |
+1   | use crate::net::udp::net::udp::net_imp::c_void;
+    |
+1   | use std::os::raw::c_void;
+    |
+
+error[E0412]: cannot find type `linger` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:148:25
+    |
+148 |         size_of::<libc::linger>() as libc::socklen_t,
+    |                         ^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `socklen_t` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:148:44
+    |
+148 |         size_of::<libc::linger>() as libc::socklen_t,
+    |                                            ^^^^^^^^^ not found in `libc`
+    |
+help: consider importing this type alias
+    |
+1   | use crate::net::uds::stream::net::stream::ucred::impl_linux::socklen_t;
+    |
+
+error[E0412]: cannot find type `linger` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:154:24
+    |
+154 |     let mut val: libc::linger =  unsafe { std::mem::zeroed() };
+    |                        ^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `linger` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:155:40
+    |
+155 |     let mut len = mem::size_of::<libc::linger>() as libc::socklen_t;
+    |                                        ^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `socklen_t` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:155:59
+    |
+155 |     let mut len = mem::size_of::<libc::linger>() as libc::socklen_t;
+    |                                                           ^^^^^^^^^ not found in `libc`
+    |
+help: consider importing this type alias
+    |
+1   | use crate::net::uds::stream::net::stream::ucred::impl_linux::socklen_t;
+    |
+
+error[E0425]: cannot find function `getsockopt` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:157:14
+    |
+157 |     syscall!(getsockopt(
+    |              ^^^^^^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+1   | use crate::net::udp::net::udp::net_imp::getsockopt;
+    |
+1   | use crate::net::uds::stream::net::stream::ucred::impl_linux::getsockopt;
+    |
+
+error[E0425]: cannot find value `SOL_SOCKET` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:159:15
+    |
+159 |         libc::SOL_SOCKET,
+    |               ^^^^^^^^^^ not found in `libc`
+    |
+help: consider importing this constant
+    |
+1   | use crate::net::uds::stream::net::stream::ucred::impl_linux::SOL_SOCKET;
+    |
+
+error[E0425]: cannot find value `SO_LINGER` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:163:15
+    |
+163 |         libc::SO_LINGER,
+    |               ^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find function `setsockopt` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:177:14
+    |
+177 |     syscall!(setsockopt(
+    |              ^^^^^^^^^^ not found in `libc`
+    |
+help: consider importing this function
+    |
+1   | use crate::net::udp::net::udp::net_imp::setsockopt;
+    |
+
+error[E0425]: cannot find value `SOL_SOCKET` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:179:15
+    |
+179 |         libc::SOL_SOCKET,
+    |               ^^^^^^^^^^ not found in `libc`
+    |
+help: consider importing this constant
+    |
+1   | use crate::net::uds::stream::net::stream::ucred::impl_linux::SOL_SOCKET;
+    |
+
+error[E0425]: cannot find value `SO_RCVBUF` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:180:15
+    |
+180 |         libc::SO_RCVBUF,
+    |               ^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `c_void` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:181:43
+    |
+181 |         &size as *const _ as *const libc::c_void,
+    |                                           ^^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+1   | use core::ffi::c_void;
+    |
+1   | use crate::net::udp::net::udp::net_imp::c_void;
+    |
+1   | use std::os::raw::c_void;
+    |
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:182:25
+    |
+182 |         size_of::<libc::c_int>() as libc::socklen_t
+    |                         ^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+1   | use crate::net::udp::net::udp::net_imp::c_int;
+    |
+1   | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+    |
+1   | use std::os::raw::c_int;
+    |
+
+error[E0412]: cannot find type `socklen_t` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:182:43
+    |
+182 |         size_of::<libc::c_int>() as libc::socklen_t
+    |                                           ^^^^^^^^^ not found in `libc`
+    |
+help: consider importing this type alias
+    |
+1   | use crate::net::uds::stream::net::stream::ucred::impl_linux::socklen_t;
+    |
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:188:27
+    |
+188 |     let mut optval: libc::c_int = 0;
+    |                           ^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+1   | use crate::net::udp::net::udp::net_imp::c_int;
+    |
+1   | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+    |
+1   | use std::os::raw::c_int;
+    |
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:189:38
+    |
+189 |     let mut optlen = size_of::<libc::c_int>() as libc::socklen_t;
+    |                                      ^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+1   | use crate::net::udp::net::udp::net_imp::c_int;
+    |
+1   | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+    |
+1   | use std::os::raw::c_int;
+    |
+
+error[E0412]: cannot find type `socklen_t` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:189:56
+    |
+189 |     let mut optlen = size_of::<libc::c_int>() as libc::socklen_t;
+    |                                                        ^^^^^^^^^ not found in `libc`
+    |
+help: consider importing this type alias
+    |
+1   | use crate::net::uds::stream::net::stream::ucred::impl_linux::socklen_t;
+    |
+
+error[E0425]: cannot find function `getsockopt` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:190:14
+    |
+190 |     syscall!(getsockopt(
+    |              ^^^^^^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+1   | use crate::net::udp::net::udp::net_imp::getsockopt;
+    |
+1   | use crate::net::uds::stream::net::stream::ucred::impl_linux::getsockopt;
+    |
+
+error[E0425]: cannot find value `SOL_SOCKET` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:192:15
+    |
+192 |         libc::SOL_SOCKET,
+    |               ^^^^^^^^^^ not found in `libc`
+    |
+help: consider importing this constant
+    |
+1   | use crate::net::uds::stream::net::stream::ucred::impl_linux::SOL_SOCKET;
+    |
+
+error[E0425]: cannot find value `SO_RCVBUF` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:193:15
+    |
+193 |         libc::SO_RCVBUF,
+    |               ^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find function `setsockopt` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:203:14
+    |
+203 |     syscall!(setsockopt(
+    |              ^^^^^^^^^^ not found in `libc`
+    |
+help: consider importing this function
+    |
+1   | use crate::net::udp::net::udp::net_imp::setsockopt;
+    |
+
+error[E0425]: cannot find value `SOL_SOCKET` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:205:15
+    |
+205 |         libc::SOL_SOCKET,
+    |               ^^^^^^^^^^ not found in `libc`
+    |
+help: consider importing this constant
+    |
+1   | use crate::net::uds::stream::net::stream::ucred::impl_linux::SOL_SOCKET;
+    |
+
+error[E0425]: cannot find value `SO_SNDBUF` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:206:15
+    |
+206 |         libc::SO_SNDBUF,
+    |               ^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `c_void` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:207:43
+    |
+207 |         &size as *const _ as *const libc::c_void,
+    |                                           ^^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+1   | use core::ffi::c_void;
+    |
+1   | use crate::net::udp::net::udp::net_imp::c_void;
+    |
+1   | use std::os::raw::c_void;
+    |
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:208:25
+    |
+208 |         size_of::<libc::c_int>() as libc::socklen_t
+    |                         ^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+1   | use crate::net::udp::net::udp::net_imp::c_int;
+    |
+1   | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+    |
+1   | use std::os::raw::c_int;
+    |
+
+error[E0412]: cannot find type `socklen_t` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:208:43
+    |
+208 |         size_of::<libc::c_int>() as libc::socklen_t
+    |                                           ^^^^^^^^^ not found in `libc`
+    |
+help: consider importing this type alias
+    |
+1   | use crate::net::uds::stream::net::stream::ucred::impl_linux::socklen_t;
+    |
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:214:27
+    |
+214 |     let mut optval: libc::c_int = 0;
+    |                           ^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+1   | use crate::net::udp::net::udp::net_imp::c_int;
+    |
+1   | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+    |
+1   | use std::os::raw::c_int;
+    |
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:215:38
+    |
+215 |     let mut optlen = size_of::<libc::c_int>() as libc::socklen_t;
+    |                                      ^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+1   | use crate::net::udp::net::udp::net_imp::c_int;
+    |
+1   | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+    |
+1   | use std::os::raw::c_int;
+    |
+
+error[E0412]: cannot find type `socklen_t` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:215:56
+    |
+215 |     let mut optlen = size_of::<libc::c_int>() as libc::socklen_t;
+    |                                                        ^^^^^^^^^ not found in `libc`
+    |
+help: consider importing this type alias
+    |
+1   | use crate::net::uds::stream::net::stream::ucred::impl_linux::socklen_t;
+    |
+
+error[E0425]: cannot find function `getsockopt` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:217:14
+    |
+217 |     syscall!(getsockopt(
+    |              ^^^^^^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+1   | use crate::net::udp::net::udp::net_imp::getsockopt;
+    |
+1   | use crate::net::uds::stream::net::stream::ucred::impl_linux::getsockopt;
+    |
+
+error[E0425]: cannot find value `SOL_SOCKET` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:219:15
+    |
+219 |         libc::SOL_SOCKET,
+    |               ^^^^^^^^^^ not found in `libc`
+    |
+help: consider importing this constant
+    |
+1   | use crate::net::uds::stream::net::stream::ucred::impl_linux::SOL_SOCKET;
+    |
+
+error[E0425]: cannot find value `SO_SNDBUF` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:220:15
+    |
+220 |         libc::SO_SNDBUF,
+    |               ^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:229:20
+    |
+229 |     let val: libc::c_int = if keepalive { 1 } else { 0 };
+    |                    ^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+1   | use crate::net::udp::net::udp::net_imp::c_int;
+    |
+1   | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+    |
+1   | use std::os::raw::c_int;
+    |
+
+error[E0425]: cannot find function `setsockopt` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:230:14
+    |
+230 |     syscall!(setsockopt(
+    |              ^^^^^^^^^^ not found in `libc`
+    |
+help: consider importing this function
+    |
+1   | use crate::net::udp::net::udp::net_imp::setsockopt;
+    |
+
+error[E0425]: cannot find value `SOL_SOCKET` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:232:15
+    |
+232 |         libc::SOL_SOCKET,
+    |               ^^^^^^^^^^ not found in `libc`
+    |
+help: consider importing this constant
+    |
+1   | use crate::net::uds::stream::net::stream::ucred::impl_linux::SOL_SOCKET;
+    |
+
+error[E0425]: cannot find value `SO_KEEPALIVE` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:233:15
+    |
+233 |         libc::SO_KEEPALIVE,
+    |               ^^^^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `c_void` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:234:42
+    |
+234 |         &val as *const _ as *const libc::c_void,
+    |                                          ^^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+1   | use core::ffi::c_void;
+    |
+1   | use crate::net::udp::net::udp::net_imp::c_void;
+    |
+1   | use std::os::raw::c_void;
+    |
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:235:25
+    |
+235 |         size_of::<libc::c_int>() as libc::socklen_t
+    |                         ^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+1   | use crate::net::udp::net::udp::net_imp::c_int;
+    |
+1   | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+    |
+1   | use std::os::raw::c_int;
+    |
+
+error[E0412]: cannot find type `socklen_t` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:235:43
+    |
+235 |         size_of::<libc::c_int>() as libc::socklen_t
+    |                                           ^^^^^^^^^ not found in `libc`
+    |
+help: consider importing this type alias
+    |
+1   | use crate::net::uds::stream::net::stream::ucred::impl_linux::socklen_t;
+    |
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:241:27
+    |
+241 |     let mut optval: libc::c_int = 0;
+    |                           ^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+1   | use crate::net::udp::net::udp::net_imp::c_int;
+    |
+1   | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+    |
+1   | use std::os::raw::c_int;
+    |
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:242:43
+    |
+242 |     let mut optlen = mem::size_of::<libc::c_int>() as libc::socklen_t;
+    |                                           ^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+1   | use crate::net::udp::net::udp::net_imp::c_int;
+    |
+1   | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+    |
+1   | use std::os::raw::c_int;
+    |
+
+error[E0412]: cannot find type `socklen_t` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:242:61
+    |
+242 |     let mut optlen = mem::size_of::<libc::c_int>() as libc::socklen_t;
+    |                                                             ^^^^^^^^^ not found in `libc`
+    |
+help: consider importing this type alias
+    |
+1   | use crate::net::uds::stream::net::stream::ucred::impl_linux::socklen_t;
+    |
+
+error[E0425]: cannot find function `getsockopt` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:244:14
+    |
+244 |     syscall!(getsockopt(
+    |              ^^^^^^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+1   | use crate::net::udp::net::udp::net_imp::getsockopt;
+    |
+1   | use crate::net::uds::stream::net::stream::ucred::impl_linux::getsockopt;
+    |
+
+error[E0425]: cannot find value `SOL_SOCKET` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:246:15
+    |
+246 |         libc::SOL_SOCKET,
+    |               ^^^^^^^^^^ not found in `libc`
+    |
+help: consider importing this constant
+    |
+1   | use crate::net::uds::stream::net::stream::ucred::impl_linux::SOL_SOCKET;
+    |
+
+error[E0425]: cannot find value `SO_KEEPALIVE` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:247:15
+    |
+247 |         libc::SO_KEEPALIVE,
+    |               ^^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find function `setsockopt` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:287:14
+    |
+287 |     syscall!(setsockopt(
+    |              ^^^^^^^^^^ not found in `libc`
+    |
+help: consider importing this function
+    |
+1   | use crate::net::udp::net::udp::net_imp::setsockopt;
+    |
+
+error[E0425]: cannot find value `IPPROTO_TCP` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:289:15
+    |
+289 |         libc::IPPROTO_TCP,
+    |               ^^^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:291:30
+    |
+291 |         &(time_secs as libc::c_int) as *const _ as *const libc::c_void,
+    |                              ^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+1   | use crate::net::udp::net::udp::net_imp::c_int;
+    |
+1   | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+    |
+1   | use std::os::raw::c_int;
+    |
+
+error[E0412]: cannot find type `c_void` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:291:65
+    |
+291 |         &(time_secs as libc::c_int) as *const _ as *const libc::c_void,
+    |                                                                 ^^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+1   | use core::ffi::c_void;
+    |
+1   | use crate::net::udp::net::udp::net_imp::c_void;
+    |
+1   | use std::os::raw::c_void;
+    |
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:292:25
+    |
+292 |         size_of::<libc::c_int>() as libc::socklen_t
+    |                         ^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+1   | use crate::net::udp::net::udp::net_imp::c_int;
+    |
+1   | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+    |
+1   | use std::os::raw::c_int;
+    |
+
+error[E0412]: cannot find type `socklen_t` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:292:43
+    |
+292 |         size_of::<libc::c_int>() as libc::socklen_t
+    |                                           ^^^^^^^^^ not found in `libc`
+    |
+help: consider importing this type alias
+    |
+1   | use crate::net::uds::stream::net::stream::ucred::impl_linux::socklen_t;
+    |
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:302:27
+    |
+302 |     let mut optval: libc::c_int = 0;
+    |                           ^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+1   | use crate::net::udp::net::udp::net_imp::c_int;
+    |
+1   | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+    |
+1   | use std::os::raw::c_int;
+    |
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:303:43
+    |
+303 |     let mut optlen = mem::size_of::<libc::c_int>() as libc::socklen_t;
+    |                                           ^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+1   | use crate::net::udp::net::udp::net_imp::c_int;
+    |
+1   | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+    |
+1   | use std::os::raw::c_int;
+    |
+
+error[E0412]: cannot find type `socklen_t` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:303:61
+    |
+303 |     let mut optlen = mem::size_of::<libc::c_int>() as libc::socklen_t;
+    |                                                             ^^^^^^^^^ not found in `libc`
+    |
+help: consider importing this type alias
+    |
+1   | use crate::net::uds::stream::net::stream::ucred::impl_linux::socklen_t;
+    |
+
+error[E0425]: cannot find function `getsockopt` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:304:14
+    |
+304 |     syscall!(getsockopt(
+    |              ^^^^^^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+1   | use crate::net::udp::net::udp::net_imp::getsockopt;
+    |
+1   | use crate::net::uds::stream::net::stream::ucred::impl_linux::getsockopt;
+    |
+
+error[E0425]: cannot find value `IPPROTO_TCP` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:306:15
+    |
+306 |         libc::IPPROTO_TCP,
+    |               ^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find function `setsockopt` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:337:14
+    |
+337 |     syscall!(setsockopt(
+    |              ^^^^^^^^^^ not found in `libc`
+    |
+help: consider importing this function
+    |
+1   | use crate::net::udp::net::udp::net_imp::setsockopt;
+    |
+
+error[E0425]: cannot find value `IPPROTO_TCP` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:339:15
+    |
+339 |         libc::IPPROTO_TCP,
+    |               ^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `TCP_KEEPINTVL` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:340:15
+    |
+340 |         libc::TCP_KEEPINTVL,
+    |               ^^^^^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:341:34
+    |
+341 |         &(interval_secs as libc::c_int) as *const _ as *const libc::c_void,
+    |                                  ^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+1   | use crate::net::udp::net::udp::net_imp::c_int;
+    |
+1   | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+    |
+1   | use std::os::raw::c_int;
+    |
+
+error[E0412]: cannot find type `c_void` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:341:69
+    |
+341 |         &(interval_secs as libc::c_int) as *const _ as *const libc::c_void,
+    |                                                                     ^^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+1   | use core::ffi::c_void;
+    |
+1   | use crate::net::udp::net::udp::net_imp::c_void;
+    |
+1   | use std::os::raw::c_void;
+    |
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:342:25
+    |
+342 |         size_of::<libc::c_int>() as libc::socklen_t
+    |                         ^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+1   | use crate::net::udp::net::udp::net_imp::c_int;
+    |
+1   | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+    |
+1   | use std::os::raw::c_int;
+    |
+
+error[E0412]: cannot find type `socklen_t` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:342:43
+    |
+342 |         size_of::<libc::c_int>() as libc::socklen_t
+    |                                           ^^^^^^^^^ not found in `libc`
+    |
+help: consider importing this type alias
+    |
+1   | use crate::net::uds::stream::net::stream::ucred::impl_linux::socklen_t;
+    |
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:359:27
+    |
+359 |     let mut optval: libc::c_int = 0;
+    |                           ^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+1   | use crate::net::udp::net::udp::net_imp::c_int;
+    |
+1   | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+    |
+1   | use std::os::raw::c_int;
+    |
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:360:43
+    |
+360 |     let mut optlen = mem::size_of::<libc::c_int>() as libc::socklen_t;
+    |                                           ^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+1   | use crate::net::udp::net::udp::net_imp::c_int;
+    |
+1   | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+    |
+1   | use std::os::raw::c_int;
+    |
+
+error[E0412]: cannot find type `socklen_t` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:360:61
+    |
+360 |     let mut optlen = mem::size_of::<libc::c_int>() as libc::socklen_t;
+    |                                                             ^^^^^^^^^ not found in `libc`
+    |
+help: consider importing this type alias
+    |
+1   | use crate::net::uds::stream::net::stream::ucred::impl_linux::socklen_t;
+    |
+
+error[E0425]: cannot find function `getsockopt` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:361:14
+    |
+361 |     syscall!(getsockopt(
+    |              ^^^^^^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+1   | use crate::net::udp::net::udp::net_imp::getsockopt;
+    |
+1   | use crate::net::uds::stream::net::stream::ucred::impl_linux::getsockopt;
+    |
+
+error[E0425]: cannot find value `IPPROTO_TCP` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:363:15
+    |
+363 |         libc::IPPROTO_TCP,
+    |               ^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `TCP_KEEPINTVL` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:364:15
+    |
+364 |         libc::TCP_KEEPINTVL,
+    |               ^^^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find function `setsockopt` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:390:14
+    |
+390 |     syscall!(setsockopt(
+    |              ^^^^^^^^^^ not found in `libc`
+    |
+help: consider importing this function
+    |
+1   | use crate::net::udp::net::udp::net_imp::setsockopt;
+    |
+
+error[E0425]: cannot find value `IPPROTO_TCP` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:392:15
+    |
+392 |         libc::IPPROTO_TCP,
+    |               ^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `TCP_KEEPCNT` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:393:15
+    |
+393 |         libc::TCP_KEEPCNT,
+    |               ^^^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:394:28
+    |
+394 |         &(retries as libc::c_int) as *const _ as *const libc::c_void,
+    |                            ^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+1   | use crate::net::udp::net::udp::net_imp::c_int;
+    |
+1   | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+    |
+1   | use std::os::raw::c_int;
+    |
+
+error[E0412]: cannot find type `c_void` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:394:63
+    |
+394 |         &(retries as libc::c_int) as *const _ as *const libc::c_void,
+    |                                                               ^^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+1   | use core::ffi::c_void;
+    |
+1   | use crate::net::udp::net::udp::net_imp::c_void;
+    |
+1   | use std::os::raw::c_void;
+    |
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:395:25
+    |
+395 |         size_of::<libc::c_int>() as libc::socklen_t
+    |                         ^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+1   | use crate::net::udp::net::udp::net_imp::c_int;
+    |
+1   | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+    |
+1   | use std::os::raw::c_int;
+    |
+
+error[E0412]: cannot find type `socklen_t` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:395:43
+    |
+395 |         size_of::<libc::c_int>() as libc::socklen_t
+    |                                           ^^^^^^^^^ not found in `libc`
+    |
+help: consider importing this type alias
+    |
+1   | use crate::net::uds::stream::net::stream::ucred::impl_linux::socklen_t;
+    |
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:412:27
+    |
+412 |     let mut optval: libc::c_int = 0;
+    |                           ^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+1   | use crate::net::udp::net::udp::net_imp::c_int;
+    |
+1   | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+    |
+1   | use std::os::raw::c_int;
+    |
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:413:43
+    |
+413 |     let mut optlen = mem::size_of::<libc::c_int>() as libc::socklen_t;
+    |                                           ^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+1   | use crate::net::udp::net::udp::net_imp::c_int;
+    |
+1   | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+    |
+1   | use std::os::raw::c_int;
+    |
+
+error[E0412]: cannot find type `socklen_t` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:413:61
+    |
+413 |     let mut optlen = mem::size_of::<libc::c_int>() as libc::socklen_t;
+    |                                                             ^^^^^^^^^ not found in `libc`
+    |
+help: consider importing this type alias
+    |
+1   | use crate::net::uds::stream::net::stream::ucred::impl_linux::socklen_t;
+    |
+
+error[E0425]: cannot find function `getsockopt` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:414:14
+    |
+414 |     syscall!(getsockopt(
+    |              ^^^^^^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+1   | use crate::net::udp::net::udp::net_imp::getsockopt;
+    |
+1   | use crate::net::uds::stream::net::stream::ucred::impl_linux::getsockopt;
+    |
+
+error[E0425]: cannot find value `IPPROTO_TCP` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:416:15
+    |
+416 |         libc::IPPROTO_TCP,
+    |               ^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `TCP_KEEPCNT` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:417:15
+    |
+417 |         libc::TCP_KEEPCNT,
+    |               ^^^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `sockaddr_storage` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:426:37
+    |
+426 |     let mut addr: MaybeUninit<libc::sockaddr_storage> = MaybeUninit::uninit();
+    |                                     ^^^^^^^^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `sockaddr_storage` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:427:38
+    |
+427 |     let mut length = size_of::<libc::sockaddr_storage>() as libc::socklen_t;
+    |                                      ^^^^^^^^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `socklen_t` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:427:67
+    |
+427 |     let mut length = size_of::<libc::sockaddr_storage>() as libc::socklen_t;
+    |                                                                   ^^^^^^^^^ not found in `libc`
+    |
+help: consider importing this type alias
+    |
+1   | use crate::net::uds::stream::net::stream::ucred::impl_linux::socklen_t;
+    |
+
+error[E0425]: cannot find function `accept4` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:446:18
+    |
+446 |         syscall!(accept4(
+    |                  ^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `SOCK_CLOEXEC` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:450:19
+    |
+450 |             libc::SOCK_CLOEXEC | libc::SOCK_NONBLOCK,
+    |                   ^^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `SOCK_NONBLOCK` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/tcp.rs:450:40
+    |
+450 |             libc::SOCK_CLOEXEC | libc::SOCK_NONBLOCK,
+    |                                        ^^^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `SOCK_DGRAM` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/udp.rs:11:44
+   |
+11 |     let socket = new_ip_socket(addr, libc::SOCK_DGRAM);
+   |                                            ^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find function `bind` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/udp.rs:15:18
+   |
+15 |         syscall!(bind(socket, raw_addr.as_ptr(), raw_addr_length))
+   |                  ^^^^ not found in `libc`
+   |
+help: consider importing one of these items
+   |
+1  | use crate::sys::tcp::bind;
+   |
+1  | use crate::sys::uds::datagram::bind;
+   |
+1  | use crate::sys::uds::listener::bind;
+   |
+
+error[E0425]: cannot find function `close` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/udp.rs:19:40
+   |
+19 |                 let _ = unsafe { libc::close(socket) };
+   |                                        ^^^^^ not found in `libc`
+   |
+help: consider importing this function
+   |
+1  | use crate::sys::tcp::close;
+   |
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/udp.rs:27:27
+   |
+27 |     let mut optval: libc::c_int = 0;
+   |                           ^^^^^ not found in `libc`
+   |
+help: consider importing one of these items
+   |
+1  | use crate::net::udp::net::udp::net_imp::c_int;
+   |
+1  | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+   |
+1  | use std::os::raw::c_int;
+   |
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/udp.rs:28:43
+   |
+28 |     let mut optlen = mem::size_of::<libc::c_int>() as libc::socklen_t;
+   |                                           ^^^^^ not found in `libc`
+   |
+help: consider importing one of these items
+   |
+1  | use crate::net::udp::net::udp::net_imp::c_int;
+   |
+1  | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+   |
+1  | use std::os::raw::c_int;
+   |
+
+error[E0412]: cannot find type `socklen_t` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/udp.rs:28:61
+   |
+28 |     let mut optlen = mem::size_of::<libc::c_int>() as libc::socklen_t;
+   |                                                             ^^^^^^^^^ not found in `libc`
+   |
+help: consider importing this type alias
+   |
+1  | use crate::net::uds::stream::net::stream::ucred::impl_linux::socklen_t;
+   |
+
+error[E0425]: cannot find function `getsockopt` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/udp.rs:30:14
+   |
+30 |     syscall!(getsockopt(
+   |              ^^^^^^^^^^ not found in `libc`
+   |
+help: consider importing one of these items
+   |
+1  | use crate::net::udp::net::udp::net_imp::getsockopt;
+   |
+1  | use crate::net::uds::stream::net::stream::ucred::impl_linux::getsockopt;
+   |
+
+error[E0425]: cannot find value `IPPROTO_IPV6` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/udp.rs:32:15
+   |
+32 |         libc::IPPROTO_IPV6,
+   |               ^^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `IPV6_V6ONLY` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/udp.rs:33:15
+   |
+33 |         libc::IPV6_V6ONLY,
+   |               ^^^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `sockaddr_un` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/socketaddr.rs:16:21
+   |
+16 |     sockaddr: libc::sockaddr_un,
+   |                     ^^^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `socklen_t` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/socketaddr.rs:17:20
+   |
+17 |     socklen: libc::socklen_t,
+   |                    ^^^^^^^^^ not found in `libc`
+   |
+help: consider importing this type alias
+   |
+1  | use crate::net::uds::stream::net::stream::ucred::impl_linux::socklen_t;
+   |
+
+error[E0412]: cannot find type `c_char` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/socketaddr.rs:36:73
+   |
+36 |         let path = unsafe { &*(&self.sockaddr.sun_path as *const [libc::c_char] as *const [u8]) };
+   |                                                                         ^^^^^^ not found in `libc`
+   |
+help: consider importing one of these items
+   |
+1  | use crate::net::uds::stream::net::raw_fd::sys::ext::io::raw::c_char;
+   |
+1  | use crate::net::uds::stream::net::raw_fd::sys::process::process_common::c_char;
+   |
+1  | use std::os::raw::c_char;
+   |
+
+error[E0412]: cannot find type `sockaddr` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/socketaddr.rs:58:34
+   |
+58 |             F: FnOnce(*mut libc::sockaddr, &mut libc::socklen_t) -> io::Result<libc::c_int>,
+   |                                  ^^^^^^^^ not found in `libc`
+   |
+help: consider importing this struct
+   |
+1  | use crate::net::uds::stream::net::raw_fd::sys::net::sockaddr;
+   |
+
+error[E0412]: cannot find type `socklen_t` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/socketaddr.rs:58:55
+   |
+58 |             F: FnOnce(*mut libc::sockaddr, &mut libc::socklen_t) -> io::Result<libc::c_int>,
+   |                                                       ^^^^^^^^^ not found in `libc`
+   |
+help: consider importing this type alias
+   |
+1  | use crate::net::uds::stream::net::stream::ucred::impl_linux::socklen_t;
+   |
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/socketaddr.rs:58:86
+   |
+58 |             F: FnOnce(*mut libc::sockaddr, &mut libc::socklen_t) -> io::Result<libc::c_int>,
+   |                                                                                      ^^^^^ not found in `libc`
+   |
+help: consider importing one of these items
+   |
+1  | use crate::net::udp::net::udp::net_imp::c_int;
+   |
+1  | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+   |
+1  | use std::os::raw::c_int;
+   |
+
+error[E0412]: cannot find type `sockaddr_un` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/socketaddr.rs:61:57
+   |
+61 |                 let sockaddr = mem::MaybeUninit::<libc::sockaddr_un>::zeroed();
+   |                                                         ^^^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `sockaddr_un` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/socketaddr.rs:65:60
+   |
+65 |             let raw_sockaddr = &mut sockaddr as *mut libc::sockaddr_un as *mut libc::sockaddr;
+   |                                                            ^^^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `sockaddr` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/socketaddr.rs:65:86
+   |
+65 |             let raw_sockaddr = &mut sockaddr as *mut libc::sockaddr_un as *mut libc::sockaddr;
+   |                                                                                      ^^^^^^^^ not found in `libc`
+   |
+help: consider importing this struct
+   |
+1  | use crate::net::uds::stream::net::raw_fd::sys::net::sockaddr;
+   |
+
+error[E0412]: cannot find type `socklen_t` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/socketaddr.rs:66:68
+   |
+66 |             let mut socklen = mem::size_of_val(&sockaddr) as libc::socklen_t;
+   |                                                                    ^^^^^^^^^ not found in `libc`
+   |
+help: consider importing this type alias
+   |
+1  | use crate::net::uds::stream::net::stream::ucred::impl_linux::socklen_t;
+   |
+
+error[E0412]: cannot find type `sockaddr_un` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/socketaddr.rs:72:50
+   |
+72 |         pub(crate) fn from_parts(sockaddr: libc::sockaddr_un, socklen: libc::socklen_t) -> SocketAddr {
+   |                                                  ^^^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `socklen_t` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/socketaddr.rs:72:78
+   |
+72 |         pub(crate) fn from_parts(sockaddr: libc::sockaddr_un, socklen: libc::socklen_t) -> SocketAddr {
+   |                                                                              ^^^^^^^^^ not found in `libc`
+   |
+help: consider importing this type alias
+   |
+1  | use crate::net::uds::stream::net::stream::ucred::impl_linux::socklen_t;
+   |
+
+error[E0412]: cannot find type `sockaddr_un` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/mod.rs:10:52
+   |
+10 | pub(in crate::sys) fn path_offset(sockaddr: &libc::sockaddr_un) -> usize {
+   |                                                    ^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `AF_UNIX` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/datagram.rs:10:31
+   |
+10 |     let fd = new_socket(libc::AF_UNIX, libc::SOCK_DGRAM)?;
+   |                               ^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `SOCK_DGRAM` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/datagram.rs:10:46
+   |
+10 |     let fd = new_socket(libc::AF_UNIX, libc::SOCK_DGRAM)?;
+   |                                              ^^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `sockaddr_un` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/datagram.rs:14:46
+   |
+14 |     let sockaddr = &sockaddr as *const libc::sockaddr_un as *const _;
+   |                                              ^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find function `bind` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/datagram.rs:15:14
+   |
+15 |     syscall!(bind(fd, sockaddr, socklen))?;
+   |              ^^^^ not found in `libc`
+   |
+help: consider importing one of these items
+   |
+1  | use crate::sys::tcp::bind;
+   |
+1  | use crate::sys::udp::bind;
+   |
+1  | use crate::sys::uds::listener::bind;
+   |
+
+error[E0425]: cannot find value `AF_UNIX` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/datagram.rs:20:22
+   |
+20 |     new_socket(libc::AF_UNIX, libc::SOCK_DGRAM)
+   |                      ^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `SOCK_DGRAM` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/datagram.rs:20:37
+   |
+20 |     new_socket(libc::AF_UNIX, libc::SOCK_DGRAM)
+   |                                     ^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `SOCK_DGRAM` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/datagram.rs:25:23
+   |
+25 |     super::pair(libc::SOCK_DGRAM)
+   |                       ^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find function `recvfrom` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/datagram.rs:42:18
+   |
+42 |         syscall!(recvfrom(
+   |                  ^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/datagram.rs:52:24
+   |
+52 |             c as libc::c_int
+   |                        ^^^^^ not found in `libc`
+   |
+help: consider importing one of these items
+   |
+1  | use crate::net::udp::net::udp::net_imp::c_int;
+   |
+1  | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+   |
+1  | use std::os::raw::c_int;
+   |
+
+error[E0425]: cannot find value `AF_UNIX` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/listener.rs:10:35
+   |
+10 |     let socket = new_socket(libc::AF_UNIX, libc::SOCK_STREAM)?;
+   |                                   ^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `SOCK_STREAM` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/listener.rs:10:50
+   |
+10 |     let socket = new_socket(libc::AF_UNIX, libc::SOCK_STREAM)?;
+   |                                                  ^^^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `sockaddr_un` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/listener.rs:12:46
+   |
+12 |     let sockaddr = &sockaddr as *const libc::sockaddr_un as *const libc::sockaddr;
+   |                                              ^^^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `sockaddr` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/listener.rs:12:74
+   |
+12 |     let sockaddr = &sockaddr as *const libc::sockaddr_un as *const libc::sockaddr;
+   |                                                                          ^^^^^^^^ not found in `libc`
+   |
+help: consider importing this struct
+   |
+1  | use crate::net::uds::stream::net::raw_fd::sys::net::sockaddr;
+   |
+
+error[E0425]: cannot find function `bind` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/listener.rs:14:14
+   |
+14 |     syscall!(bind(socket, sockaddr, socklen))
+   |              ^^^^ not found in `libc`
+   |
+help: consider importing one of these items
+   |
+1  | use crate::sys::tcp::bind;
+   |
+1  | use crate::sys::udp::bind;
+   |
+1  | use crate::sys::uds::datagram::bind;
+   |
+
+error[E0425]: cannot find function `listen` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/listener.rs:15:32
+   |
+15 |         .and_then(|_| syscall!(listen(socket, 1024)))
+   |                                ^^^^^^ not found in `libc`
+   |
+help: consider importing this function
+   |
+1  | use crate::sys::tcp::listen;
+   |
+
+error[E0425]: cannot find function `close` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/listener.rs:19:36
+   |
+19 |             let _ = unsafe { libc::close(socket) };
+   |                                    ^^^^^ not found in `libc`
+   |
+help: consider importing this function
+   |
+1  | use crate::sys::tcp::close;
+   |
+
+error[E0412]: cannot find type `sockaddr_un` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/listener.rs:26:45
+   |
+26 |     let sockaddr = mem::MaybeUninit::<libc::sockaddr_un>::zeroed();
+   |                                             ^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `AF_UNIX` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/listener.rs:38:33
+   |
+38 |     sockaddr.sun_family = libc::AF_UNIX as libc::sa_family_t;
+   |                                 ^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `sa_family_t` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/listener.rs:38:50
+   |
+38 |     sockaddr.sun_family = libc::AF_UNIX as libc::sa_family_t;
+   |                                                  ^^^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `socklen_t` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/listener.rs:39:60
+   |
+39 |     let mut socklen = mem::size_of_val(&sockaddr) as libc::socklen_t;
+   |                                                            ^^^^^^^^^ not found in `libc`
+   |
+help: consider importing this type alias
+   |
+1  | use crate::net::uds::stream::net::stream::ucred::impl_linux::socklen_t;
+   |
+
+error[E0425]: cannot find value `SOCK_NONBLOCK` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/listener.rs:54:27
+   |
+54 |         let flags = libc::SOCK_NONBLOCK | libc::SOCK_CLOEXEC;
+   |                           ^^^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `SOCK_CLOEXEC` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/listener.rs:54:49
+   |
+54 |         let flags = libc::SOCK_NONBLOCK | libc::SOCK_CLOEXEC;
+   |                                                 ^^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find function `accept4` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/listener.rs:55:18
+   |
+55 |         syscall!(accept4(
+   |                  ^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `sockaddr_un` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/listener.rs:57:41
+   |
+57 |             &mut sockaddr as *mut libc::sockaddr_un as *mut libc::sockaddr,
+   |                                         ^^^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `sockaddr` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/listener.rs:57:67
+   |
+57 |             &mut sockaddr as *mut libc::sockaddr_un as *mut libc::sockaddr,
+   |                                                                   ^^^^^^^^ not found in `libc`
+   |
+help: consider importing this struct
+   |
+1  | use crate::net::uds::stream::net::raw_fd::sys::net::sockaddr;
+   |
+
+error[E0425]: cannot find value `AF_UNIX` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/stream.rs:10:35
+   |
+10 |     let socket = new_socket(libc::AF_UNIX, libc::SOCK_STREAM)?;
+   |                                   ^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `SOCK_STREAM` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/stream.rs:10:50
+   |
+10 |     let socket = new_socket(libc::AF_UNIX, libc::SOCK_STREAM)?;
+   |                                                  ^^^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `sockaddr_un` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/stream.rs:12:46
+   |
+12 |     let sockaddr = &sockaddr as *const libc::sockaddr_un as *const libc::sockaddr;
+   |                                              ^^^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `sockaddr` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/stream.rs:12:74
+   |
+12 |     let sockaddr = &sockaddr as *const libc::sockaddr_un as *const libc::sockaddr;
+   |                                                                          ^^^^^^^^ not found in `libc`
+   |
+help: consider importing this struct
+   |
+1  | use crate::net::uds::stream::net::raw_fd::sys::net::sockaddr;
+   |
+
+error[E0425]: cannot find function `connect` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/stream.rs:14:20
+   |
+14 |     match syscall!(connect(socket, sockaddr, socklen)) {
+   |                    ^^^^^^^ not found in `libc`
+   |
+help: consider importing this function
+   |
+1  | use crate::sys::tcp::connect;
+   |
+
+error[E0425]: cannot find function `close` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/stream.rs:20:36
+   |
+20 |             let _ = unsafe { libc::close(socket) };
+   |                                    ^^^^^ not found in `libc`
+   |
+help: consider importing this function
+   |
+1  | use crate::sys::tcp::close;
+   |
+
+error[E0425]: cannot find value `SOCK_STREAM` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/stream.rs:30:23
+   |
+30 |     super::pair(libc::SOCK_STREAM)
+   |                       ^^^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `sockaddr_un` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/mod.rs:27:73
+   |
+27 |     pub(in crate::sys) fn socket_addr(path: &Path) -> io::Result<(libc::sockaddr_un, libc::socklen_t)> {
+   |                                                                         ^^^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `socklen_t` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/mod.rs:27:92
+   |
+27 |     pub(in crate::sys) fn socket_addr(path: &Path) -> io::Result<(libc::sockaddr_un, libc::socklen_t)> {
+   |                                                                                            ^^^^^^^^^ not found in `libc`
+   |
+help: consider importing this type alias
+   |
+2  | use crate::net::uds::stream::net::stream::ucred::impl_linux::socklen_t;
+   |
+
+error[E0412]: cannot find type `sockaddr_un` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/mod.rs:28:49
+   |
+28 |         let sockaddr = mem::MaybeUninit::<libc::sockaddr_un>::zeroed();
+   |                                                 ^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `AF_UNIX` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/mod.rs:40:37
+   |
+40 |         sockaddr.sun_family = libc::AF_UNIX as libc::sa_family_t;
+   |                                     ^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `sa_family_t` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/mod.rs:40:54
+   |
+40 |         sockaddr.sun_family = libc::AF_UNIX as libc::sa_family_t;
+   |                                                      ^^^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `c_char` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/mod.rs:61:34
+   |
+61 |             *dst = *src as libc::c_char;
+   |                                  ^^^^^^ not found in `libc`
+   |
+help: consider importing one of these items
+   |
+2  | use crate::net::uds::stream::net::raw_fd::sys::ext::io::raw::c_char;
+   |
+2  | use crate::net::uds::stream::net::raw_fd::sys::process::process_common::c_char;
+   |
+2  | use std::os::raw::c_char;
+   |
+
+error[E0412]: cannot find type `socklen_t` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/mod.rs:74:40
+   |
+74 |         Ok((sockaddr, socklen as libc::socklen_t))
+   |                                        ^^^^^^^^^ not found in `libc`
+   |
+help: consider importing this type alias
+   |
+2  | use crate::net::uds::stream::net::stream::ucred::impl_linux::socklen_t;
+   |
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/mod.rs:77:29
+   |
+77 |     fn pair<T>(flags: libc::c_int) -> io::Result<(T, T)>
+   |                             ^^^^^ not found in `libc`
+   |
+help: consider importing one of these items
+   |
+2  | use crate::net::udp::net::udp::net_imp::c_int;
+   |
+2  | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+   |
+2  | use std::os::raw::c_int;
+   |
+
+error[E0425]: cannot find value `SOCK_NONBLOCK` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/mod.rs:81:35
+   |
+81 |         let flags = flags | libc::SOCK_NONBLOCK | libc::SOCK_CLOEXEC;
+   |                                   ^^^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `SOCK_CLOEXEC` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/mod.rs:81:57
+   |
+81 |         let flags = flags | libc::SOCK_NONBLOCK | libc::SOCK_CLOEXEC;
+   |                                                         ^^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find function `socketpair` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/mod.rs:84:18
+   |
+84 |         syscall!(socketpair(libc::AF_UNIX, flags, 0, fds.as_mut_ptr()))?;
+   |                  ^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `AF_UNIX` in crate `libc`
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/mod.rs:84:35
+   |
+84 |         syscall!(socketpair(libc::AF_UNIX, flags, 0, fds.as_mut_ptr()))?;
+   |                                   ^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find function `getsockname` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/mod.rs:107:54
+    |
+107 |         SocketAddr::new(|sockaddr, socklen| syscall!(getsockname(socket, sockaddr, socklen)))
+    |                                                      ^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find function `getpeername` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/uds/mod.rs:111:54
+    |
+111 |         SocketAddr::new(|sockaddr, socklen| syscall!(getpeername(socket, sockaddr, socklen)))
+    |                                                      ^^^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find function `pipe2` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/pipe.rs:160:18
+    |
+160 |         if libc::pipe2(fds.as_mut_ptr(), libc::O_CLOEXEC | libc::O_NONBLOCK) != 0 {
+    |                  ^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `O_CLOEXEC` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/pipe.rs:160:48
+    |
+160 |         if libc::pipe2(fds.as_mut_ptr(), libc::O_CLOEXEC | libc::O_NONBLOCK) != 0 {
+    |                                                ^^^^^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `O_NONBLOCK` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/pipe.rs:160:66
+    |
+160 |         if libc::pipe2(fds.as_mut_ptr(), libc::O_CLOEXEC | libc::O_NONBLOCK) != 0 {
+    |                                                                  ^^^^^^^^^^ not found in `libc`
+
+error[E0412]: cannot find type `c_int` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/pipe.rs:404:38
+    |
+404 |     let value = nonblocking as libc::c_int;
+    |                                      ^^^^^ not found in `libc`
+    |
+help: consider importing one of these items
+    |
+5   | use crate::net::udp::net::udp::net_imp::c_int;
+    |
+5   | use crate::net::uds::stream::net::raw_fd::sys::platform::raw::arch::c_int;
+    |
+5   | use std::os::raw::c_int;
+    |
+
+error[E0425]: cannot find function `ioctl` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/pipe.rs:405:23
+    |
+405 |     if unsafe { libc::ioctl(fd, libc::FIONBIO, &value) } == -1 {
+    |                       ^^^^^ not found in `libc`
+
+error[E0425]: cannot find value `FIONBIO` in crate `libc`
+   --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/pipe.rs:405:39
+    |
+405 |     if unsafe { libc::ioctl(fd, libc::FIONBIO, &value) } == -1 {
+    |                                       ^^^^^^^ not found in `libc`
+
+error[E0740]: unions may not contain fields that need dropping
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/net.rs:69:5
+   |
+69 |     v4: libc::sockaddr_in,
+   |     ^^^^^^^^^^^^^^^^^^^^^
+   |
+note: `std::mem::ManuallyDrop` can be used to wrap the type
+  --> /home/deep/.cargo/registry/src/github.com-1ecc6299db9ec823/mio-0.7.9/src/sys/unix/net.rs:69:5
+   |
+69 |     v4: libc::sockaddr_in,
+   |     ^^^^^^^^^^^^^^^^^^^^^
+
+error: aborting due to 310 previous errors
+
+Some errors have detailed explanations: E0412, E0422, E0425, E0432, E0433, E0531, E0740.
+For more information about an error, try `rustc --explain E0412`.
+error: build failed
