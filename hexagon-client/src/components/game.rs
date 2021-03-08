@@ -125,7 +125,7 @@ impl Component for Game {
 
                     <div class="columns">
                         <div class="column  is-three-quarters-widescreen">
-                                <HexBoard board=board />
+                                <HexBoard  key={format!("{:?}",board)} color=color board=board move_callback=self.link.callback(|mv|Msg::PlayerMove(mv)) />
                         </div>
 
                     </div>

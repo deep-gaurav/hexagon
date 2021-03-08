@@ -24,8 +24,8 @@ pub enum TeamMode {
 
 #[derive(Debug,Clone,Serialize,Deserialize)]
 pub struct Move{
-    from:Point,
-    to:Point,
+    pub from:Point,
+    pub to:Point,
 }
 
 

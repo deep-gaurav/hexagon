@@ -6,7 +6,7 @@ use components::hex_board::HexBoard;
 pub mod components;
 pub mod agent;
 pub mod app;
-
+pub mod ui;
 
 fn main() {
     wasm_logger::init(wasm_logger::Config::default());

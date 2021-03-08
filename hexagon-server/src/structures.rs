@@ -1,13 +1,18 @@
-
 use std::{collections::HashMap, sync::Arc};
 
 use itertools::Itertools;
-use log::{warn,error,info,debug};
+use log::{debug, error, info, warn};
 
-use hexagon_shared::{board::Board, structures::{CloseCodes, GameType,  Lobby, Player, PlayerStatus, SocketMessage, State, TeamMode}};
-use tokio::sync::{RwLock, mpsc::UnboundedSender};
+use hexagon_shared::{
+    board::Board,
+    colors::colors::Color,
+    structures::{
+        CloseCodes, GameType, Lobby, Player, PlayerStatus, SocketMessage, State, TeamMode,
+    },
+};
+use tokio::sync::{mpsc::UnboundedSender, RwLock};
 
-use serde::{Serialize,Deserialize};
+use serde::{Deserialize, Serialize};
 use warp::ws::Message;
 #[derive(Default)]
 pub struct Lobbies {
@@ -25,14 +30,13 @@ pub struct ServerPlayer {
 
 impl From<ServerPlayer> for Player {
     fn from(serverplayer: ServerPlayer) -> Self {
-        Self{
+        Self {
             id: serverplayer.id,
             name: serverplayer.name,
             status: serverplayer.status,
         }
     }
 }
-
 
 impl ServerPlayer {
     pub fn send(&self, message: SocketMessage) {
@@ -61,7 +65,7 @@ impl ServerPlayer {
     }
 }
 
-#[derive( Debug, Clone)]
+#[derive(Debug, Clone)]
 pub struct ServerLobby {
     pub id: String,
     pub players: HashMap<String, ServerPlayer>,
@@ -70,13 +74,14 @@ pub struct ServerLobby {
 
 impl From<ServerLobby> for Lobby {
     fn from(lobby: ServerLobby) -> Self {
-        Self{
+        Self {
             id: lobby.id,
-            players: lobby.players.into_iter().map(
-                |s|(s.0,Player::from(s.1))
-            ).collect(),
+            players: lobby
+                .players
+                .into_iter()
+                .map(|s| (s.0, Player::from(s.1)))
+                .collect(),
             state: lobby.state,
-
         }
     }
 }
@@ -94,7 +99,10 @@ impl ServerLobby {
 
     pub fn add_player(&mut self, player: ServerPlayer) -> Self {
         if let PlayerStatus::JoinedLobby(_, color) = &player.status {
-            self.broadcast(SocketMessage::PlayerJoined(player.clone().into(), color.clone()));
+            self.broadcast(SocketMessage::PlayerJoined(
+                player.clone().into(),
+                color.clone(),
+            ));
         }
         if let Some(oldplayer) = self.players.insert(player.id.clone(), player.clone()) {
             log::warn!("Old player {:#?} replaced by {:#?}", oldplayer, player);
@@ -157,11 +165,32 @@ impl ServerLobby {
         match &self.state {
             State::Lobby(pid) => {
                 if playerid == pid {
-                    if let Some(player)= self.players.get(pid){
-                        if let PlayerStatus::JoinedLobby(_,color)=player.status{
+                    if let Some(player) = self.players.get(pid) {
+                        if let PlayerStatus::JoinedLobby(_, color) = player.status {
+                            let othercolor = {
+                                let op = self.players.values().find(|p| {
+                                    if let PlayerStatus::JoinedLobby(_, ncolor) = p.status {
+                                        color != ncolor
+                                    } else {
+                                        false
+                                    }
+                                });
+                                if let Some(p) = op {
+                                    if let PlayerStatus::JoinedLobby(_, c) = p.status {
+                                        c
+                                    } else {
+                                        Color::DarkRed
+                                    }
+                                } else {
+                                    Color::DarkRed
+                                }
+                            };
+
                             self.state = State::Game({
                                 match game_type {
-                                    GameType::TwoPlayer => Board::generate_hexagon(8,color),
+                                    GameType::TwoPlayer => {
+                                        Board::generate_hexagon(8, color, othercolor)
+                                    }
                                 }
                             });
                             self.broadcast(SocketMessage::GameStart(self.state.clone()));

@@ -222,6 +222,13 @@ async fn user_connected(websocket: WebSocket, context: Context) {
 async fn player_message(player_id: &str, lobbyid: &str, context: &Context, message: PlayerMessage) {
     let lobbies = &mut context.write().await.private_lobbies;
     if let Some(lobby) = lobbies.get_mut(lobbyid) {
+        let colors = lobby.players.iter().map(|(id,p)|{
+            if let PlayerStatus::JoinedLobby(_,c)=p.status{
+                Some(c)
+            }else{
+                None
+            }
+        }).filter_map(|f|f).collect::<Vec<_>>();
         if let Some(player) = lobby.players.get_mut(player_id) {
             match message {
                 PlayerMessage::Ping => {
@@ -234,15 +241,15 @@ async fn player_message(player_id: &str, lobbyid: &str, context: &Context, messa
                 PlayerMessage::Move(mov) => {
                     if let PlayerStatus::JoinedLobby(_, color) = &player.status {
                         if let State::Game(board) = &mut lobby.state {
-                            // if &board.turn == color {
-                            //     if board.is_move_legal(&mov) && board.is_move_correct_turn(&mov) {
-                            //         board.apply_move(&mov);
-                            //         board.change_turn();
-                            //         let newboard = board.clone();
-                            //         lobby.broadcast(SocketMessage::Moved(newboard, mov.clone()))
-                            //     }
-                            // }
-                            //TODO: implement game logic
+                            if &board.turn == color {
+                                if board.is_move_legal(&mov) {
+                                    board.apply_move(&mov);
+                                    let next_color  = colors.into_iter().find(|c|c!=&board.turn).unwrap_or(board.turn);
+                                    board.change_turn(next_color);
+                                    let newboard = board.clone();
+                                    lobby.broadcast(SocketMessage::Moved(newboard, mov.clone()))
+                                }
+                            }
                         }
                     }
                 }

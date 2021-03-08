@@ -1,8 +1,23 @@
+:root {
+  --noarmalCellColor: #d4d4d4;
+  --selectedCellColor: #606060;
+  --nearNeighbourColor: #929292;
+  --farNeighbourColor: rgb(175, 175, 175);
+}
+
 .hexagon {
   position: absolute;
   background-color: #64C7CC;
   clip-path: polygon(0 25%, 50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%);
   
+}
+
+.piece {
+  position: absolute;
+  background-color: #64C7CC;
+  // clip-path: circle(50% at 50% 50%);
+  clip-path: polygon(0 25%, 50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%);
+  z-index: 10;
 }
 
 .hex-board{
