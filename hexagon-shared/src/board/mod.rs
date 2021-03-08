@@ -226,10 +226,22 @@ impl Board {
             let neighbour = self.get_neighbours(&mov.from);
             if neighbour.contains(&mov.to) {
                 self.pieces.insert(mov.to, self.turn);
+                let neighours = self.get_neighbours(&mov.to);
+                for point in neighours.iter(){
+                    if self.pieces.get(point).is_some(){
+                        self.pieces.insert(*point, self.turn);
+                    }
+                }
                 true
             } else if self.get_secondary_neighbours(&mov.from).contains(&mov.to) {
                 self.pieces.remove(&mov.from);
                 self.pieces.insert(mov.to, self.turn);
+                let neighours = self.get_neighbours(&mov.to);
+                for point in neighours.iter(){
+                    if self.pieces.get(point).is_some(){
+                        self.pieces.insert(*point, self.turn);
+                    }
+                }
                 true
             } else {
                 false
