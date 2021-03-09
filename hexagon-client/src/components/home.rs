@@ -139,7 +139,7 @@ impl Component for Home {
             <section class="section">
                 <div class="container">
                     <h1 class="title has-text-centered">
-                        {"Chess"}
+                        {"Hexagon"}
                     </h1>
                 </div>
 
@@ -166,7 +166,7 @@ impl Component for Home {
                             <div class="control ">
                                 <input value=self.room_id.clone() oninput=self.link.callback(|msg:InputData|Msg::RoomIdChange(msg.value)) class="input" type="text" placeholder="Enter Room Id to join"/>
                             </div>
-                            <div class="control">
+                            <div class="control" disabled=self.is_connecting>
                                 <a key=self.is_connecting.to_string() onclick=self.link.callback(|_|Msg::Connect) class=format!("button is-outlined is-primary {}",if self.is_connecting{"is-loading"}else{""})>
                                     {
                                         if(self.room_id.is_empty()){
