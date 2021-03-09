@@ -6,7 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hexagon</title>
   <link data-trunk rel="scss" href="styles/main.scss" />
-  <link data-trunk rel="css" href="styles/bulmaswatch.min.css" />
+  <link data-trunk rel="copy-file" href="styles/bulmaswatch-light.min.css" />
+  <link data-trunk rel="copy-file" href="styles/bulmaswatch-dark.min.css" />
 </head>
 <script>
   history.pushState = (f => function pushState() {
@@ -129,6 +130,23 @@
 </style>
 
 <body>
+  <script>
+    function loadBulma(file){
+      var head  = document.getElementsByTagName('head')[0];
+      var link  = document.createElement('link');
+      link.rel  = 'stylesheet';
+      link.type = 'text/css';
+      link.href = file;
+      link.media = 'all';
+      head.appendChild(link);
+    }
+  if (window.matchMedia && 
+    window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      loadBulma("bulmaswatch-dark.min.css")
+    }else{
+      loadBulma("bulmaswatch-light.min.css")
+    }
+  </script>
   <div class="loaderbg">
     <div class="sk-cube-grid">
       <div class="sk-cube sk-cube1"></div>
