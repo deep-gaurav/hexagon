@@ -189,7 +189,7 @@ impl ServerLobby {
                             self.state = State::Game({
                                 match game_type {
                                     GameType::TwoPlayer => {
-                                        Board::generate_hexagon(8, color, othercolor)
+                                        Board::generate_hexagon(6, color, othercolor)
                                     }
                                 }
                             });
