@@ -1,9 +1,17 @@
-use hexagon_shared::{board::Board, colors::colors::Color, structures::{Lobby, Move, Player, PlayerMessage, PlayerStatus, SocketMessage, State}};
+use core::f32;
+use std::collections::hash_map::Entry;
+use std::{collections::HashMap, ops::Index};
+
+use hexagon_shared::{
+    board::Board,
+    colors::colors::Color,
+    structures::{Lobby, Move, Player, PlayerMessage, PlayerStatus, SocketMessage, State},
+};
 use yew::prelude::*;
 
+use crate::components::hex_board::HexBoard;
 use crate::components::home::Home;
 use crate::components::peer::PeerWidget;
-use crate::components::hex_board::HexBoard;
 
 use crate::agent::notification_agent::*;
 use crate::agent::socket_agent::*;
@@ -106,6 +114,46 @@ impl Component for Game {
                 html! {}
             }
             State::Game(board) => {
+                let mut amounts: HashMap<Color, i32> = HashMap::new();
+                for p in board.pieces.values() {
+                    let e = amounts.entry(*p);
+                    e.and_modify(|e| *e += 1).or_insert(1);
+                }
+                let mut progresses = vec![];
+                let total: i32 = amounts.values().sum();
+                let mut amIt = amounts.into_iter().collect::<Vec<_>>();
+                amIt.sort_unstable_by_key(|a| a.0);
+                for i in 0..amIt.len() {
+                    progresses.push({
+                        let color = amIt.get(i);
+                        let leftas = {
+                            if i > 0 {
+                                amIt.get(i - 1).unwrap_or(&(Color::Blue, 0)).1 as f32 * 100.0
+                                    / total as f32
+                            } else {
+                                0.0
+                            }
+                        };
+                        if let Some(color) = color {
+                            html! {
+                                <div
+                                    class="pbar"
+                                    style=format!(r#"
+                                            background-color:{};
+                                            width:{}%;
+                                            left:{}%;
+                                        "#,
+                                    String::from(color.0),
+                                    color.1 as f32 * 100.0 / total as f32,
+                                    leftas
+                                )
+                                />
+                            }
+                        } else {
+                            html! {}
+                        }
+                    });
+                }
                 html! {
                     <div class="container" style="overflow:hidden;">
                         <div class="container">
@@ -125,6 +173,11 @@ impl Component for Game {
 
                     <div class="columns">
                         <div class="column  is-three-quarters-widescreen">
+                            <div class="progresscontainer">
+                                {
+                                    for progresses
+                                }
+                            </div>
                                 <HexBoard  key={format!("{:?}",board)} color=color board=board move_callback=self.link.callback(|mv|Msg::PlayerMove(mv)) />
                         </div>
 

@@ -26,3 +26,15 @@
   height: calc(100vw - 2em);
   margin: auto;
 }
+
+.progresscontainer {
+  height: 20px;
+  position: relative;
+  width: 100%;
+}
+
+.pbar {
+  height: 100%;
+  transition: all 0.3s ease-in-out;
+  position: absolute;
+}
