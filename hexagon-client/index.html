@@ -136,11 +136,15 @@
 <body>
   <script>
     function loadBulma(file){
+      if(document.getElementById(theme)){
+        document.head.removeChild(document.getElementById("theme"))
+      }
       var head  = document.getElementsByTagName('head')[0];
       var link  = document.createElement('link');
       link.rel  = 'stylesheet';
       link.type = 'text/css';
       link.href = file;
+      link.id = "theme"
       link.media = 'all';
       head.appendChild(link);
     }
@@ -150,6 +154,15 @@
     }else{
       loadBulma("bulmaswatch-light.min.css")
     }
+  window.matchMedia('(prefers-color-scheme: dark)').addListener(
+    e => {
+      if (e.matches){
+        loadBulma("bulmaswatch-dark.min.css")
+      }else{
+        loadBulma("bulmaswatch-light.min.css")
+      }
+    }
+  )
   </script>
   <div class="loaderbg">
     <div class="sk-cube-grid">
