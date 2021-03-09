@@ -113,10 +113,10 @@ impl Component for Game {
                                 {format!("Room {}",self.lobby.id)}
                             </h1>
                         </div>
-                    <div class="columns  is-mobile mt-3">
+                    <div class="columns center-div  is-mobile mt-3">
                     {
                         for self.lobby.players.iter().map(|p|html!{
-                            <div class="column">
+                            <div class="column mh-2">
                             <PeerWidget key=format!("{:#?}",p) state=state.clone() peer=p.1.clone() turn={Some(board.turn.clone())}/>
                             </div>
                         })

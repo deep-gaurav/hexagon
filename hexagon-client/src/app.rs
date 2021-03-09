@@ -74,6 +74,7 @@ impl Component for App {
     }
 
     fn update(&mut self, _msg: Self::Message) -> ShouldRender {
+        
         match _msg {
             Msg::Ping => {
                 if self.lobby.is_some() {

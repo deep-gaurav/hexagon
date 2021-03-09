@@ -23,6 +23,11 @@
     --input-hover-dark: #9598b1;
     --input-active-color: #b7bad1;
     --input-disabled-color: #dcdde4;
+
+    --notif-info-color: #3F51B5;
+    --notif-success-color: #32992f;
+    --notif-warning-color: #e9e64c;
+    --notif-error-color: #df4b4b;
 }
 
 html,body{
@@ -32,6 +37,9 @@ html,body{
 .container{
     position: relative;
     margin: auto;
+}
+
+.center-div {
     display: flex;
     align-items: center;
     justify-items: center;
@@ -57,6 +65,11 @@ html,body{
 
 .mt-2 {
     margin-top: 5px;
+}
+
+.mh-2 {
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 fieldset {
@@ -109,9 +122,111 @@ button {
     border: none;
     border-radius: 10px;
 }
+
+.is-loading {
+    animation: spinAround 500ms infinite linear;
+    border: 2px solid #dbdbdb;
+    border-top-color: var(--dark-primary-color);
+    border-right-color: var(--dark-primary-color);
+    border-bottom-color: var(--dark-primary-color);
+    border-left-color: var(--dark-primary-color);
+    border-radius: 290486px;
+    border-right-color: transparent;
+    border-top-color: transparent;
+    content: "";
+    display: block;
+    height: 1em;
+    position: relative;
+    width: 1em;
+    box-shadow: none;
+    color: transparent;
+}
+
+@keyframes spinAround{
+    from { transform:rotate(0deg);}
+    to {transform: rotate(360deg);}
+}
+
 button:active,button:hover {
     background: linear-gradient(145deg, var(--neu-dark), var(--neu-light));
 }
+
+.notification {
+    box-shadow:  5px 5px 10px var(--neu-shadow-dark),
+            -5px -5px 10px var(--neu-shadow-light);
+    border-radius: .375em;
+    position: relative;
+    margin-top: 10px;
+    padding: 1.25rem 2.5rem 1.25rem 1.5rem;   
+}
+
+.notification > .delete {
+    right: .5rem;
+    position: absolute;
+    top: .5rem;
+}
+
+.delete {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background-color: rgba(10,10,10,.2);
+    border: none;
+    border-radius: 9999px;
+    cursor: pointer;
+    pointer-events: auto;
+    display: inline-block;
+    flex-grow: 0;
+    flex-shrink: 0;
+    font-size: 0;
+    height: 20px;
+    max-height: 20px;
+    max-width: 20px;
+    min-height: 20px;
+    min-width: 20px;
+    outline: 0;
+    position: relative;
+    vertical-align: top;
+    width: 20px;
+}
+
+.delete::after{
+    height: 2px;
+    width: 50%;
+}
+.delete::before{
+    width: 2px;
+    height: 50%;
+}
+
+.delete::after, .delete::before, .modal-close::after, .modal-close::before {
+    background-color: rgba(255, 255, 255, 0.445);
+    content: "";
+    display: block;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%) rotate(45deg);
+    transform-origin: center center;
+}
+
+.is-info {
+    background-color: var(--notif-info-color);
+}
+.is-error {
+    background-color: var(--notif-error-color);
+}
+.is-warning {
+    background-color: var(--notif-warning-color);
+}
+.is-success {
+    background-color: var(--notif-success-color);
+}
+
 
 button:disabled {
     background: var(--neu-flat);

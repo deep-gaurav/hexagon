@@ -169,8 +169,8 @@ impl Component for Home {
                         </div>
                         </fieldset>
                     </div>
-                    <div class="container mt-2">
-                        <button class="control" disabled=self.is_connecting>
+                    <div class="container center-div mt-2">
+                        <button class="control" disabled=self.name.is_empty() || self.is_connecting>
                             <a key=self.is_connecting.to_string() onclick=self.link.callback(|_|Msg::Connect) class=format!("button is-outlined is-primary {}",if self.is_connecting{"is-loading"}else{""})>
                                 {
                                     if(self.room_id.is_empty()){

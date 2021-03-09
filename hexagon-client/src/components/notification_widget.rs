@@ -29,7 +29,9 @@ impl Component for NotificationWidget {
         Self {
             link,
             notif_agent: agent,
-            notifs: vec![],
+            notifs: vec![
+                
+            ],
         }
     }
 
@@ -74,7 +76,7 @@ impl Component for NotificationWidget {
                             };
                             class
                         }>
-                            <button class="delete" onclick=self.link.callback(move |_|Msg::RemoveNotif(notifc.clone()))/>
+                            <div class="delete" onclick=self.link.callback(move |_|Msg::RemoveNotif(notifc.clone()))/>
                             {
                                 &notif.content
                             }

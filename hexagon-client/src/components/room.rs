@@ -133,10 +133,10 @@ impl Component for Room {
                         </h1>
                     </div>
                 <div class="my-2">
-                <div class="columns  is-mobile">
+                <div class="columns center-div  is-mobile">
                 {
                     for self.lobby.players.iter().map(|p|html!{
-                        <div class="column">
+                        <div class="column mh-2">
                         <PeerWidget key=format!("{:#?}",p) state=state.clone() peer=p.1.clone() turn=None/>
                         </div>
                     })
@@ -192,7 +192,7 @@ impl Component for Room {
                 {
                     if self.selfid==self.lobby.state.leader(){
                         html!{
-                            <div class="container has-text-centered">
+                            <div class="container center-div has-text-centered">
                                 <button disabled={!canstart} class="button is-primary" onclick=self.link.callback(
                                     |_|Msg::StartGame
                                 )>{"Start"}</button>
