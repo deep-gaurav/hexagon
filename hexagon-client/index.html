@@ -8,10 +8,9 @@
   <title>Hexagon</title>
 
   <link data-trunk rel="scss" href="styles/main.scss" />
-  <link data-trunk rel="copy-file" href="styles/bulmaswatch-light.min.css" />
-  <link data-trunk rel="copy-file" href="styles/bulmaswatch-dark.min.css" />
-  <link data-trunk rel="copy-file" href="robots.txt" />
-
+  <link data-trunk rel="scss" href="styles/ui.scss" />
+  <link data-trunk rel="copy-file" href="styles/light.css" />
+  <link data-trunk rel="copy-file" href="styles/dark.css" />
 </head>
 <script>
   history.pushState = (f => function pushState() {
@@ -150,16 +149,16 @@
     }
   if (window.matchMedia && 
     window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      loadBulma("bulmaswatch-dark.min.css")
+      loadBulma("dark.min.css")
     }else{
-      loadBulma("bulmaswatch-light.min.css")
+      loadBulma("light.min.css")
     }
   window.matchMedia('(prefers-color-scheme: dark)').addListener(
     e => {
       if (e.matches){
-        loadBulma("bulmaswatch-dark.min.css")
+        loadBulma("dark.min.css")
       }else{
-        loadBulma("bulmaswatch-light.min.css")
+        loadBulma("light.min.css")
       }
     }
   )

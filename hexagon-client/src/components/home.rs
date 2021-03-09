@@ -166,19 +166,21 @@ impl Component for Home {
                             <div class="control ">
                                 <input value=self.room_id.clone() oninput=self.link.callback(|msg:InputData|Msg::RoomIdChange(msg.value)) class="input" type="text" placeholder="Enter Room Id to join"/>
                             </div>
-                            <div class="control">
-                                <a key=self.is_connecting.to_string() onclick=self.link.callback(|_|Msg::Connect) class=format!("button is-outlined is-primary {}",if self.is_connecting{"is-loading"}else{""})>
-                                    {
-                                        if(self.room_id.is_empty()){
-                                            "Create"
-                                        }else{
-                                            "Join"
-                                        }
-                                    }
-                                </a>
-                            </div>
                         </div>
                         </fieldset>
+                    </div>
+                    <div class="container center-div mt-2">
+                        <button class="control" disabled=self.name.is_empty() || self.is_connecting>
+                            <a key=self.is_connecting.to_string() onclick=self.link.callback(|_|Msg::Connect) class=format!("button is-outlined is-primary {}",if self.is_connecting{"is-loading"}else{""})>
+                                {
+                                    if(self.room_id.is_empty()){
+                                        "Create"
+                                    }else{
+                                        "Join"
+                                    }
+                                }
+                            </a>
+                        </button>
                     </div>
                 </div>
                 </div>

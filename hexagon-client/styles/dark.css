@@ -1,0 +1,31 @@
+:root {
+    --dark-primary-color :#303F9F;
+    --default-primary-color : #3F51B5;
+    --light-primary-color: #C5CAE9;
+    --text-primary-color: #FFFFFF;
+    --accent-color: #FF5722;
+    --primary-text-color: #212121;
+    --secondary-text-color: #757575;
+    --divider-color: #BDBDBD;
+    --shadow-color: #5460706c;
+    --card-color: #d6d8f1;
+    --background-color: #e2e4f8;
+
+    --neu-dark:#acb6c5;
+    --neu-light: #ccd8ea;
+
+    --neu-shadow-dark: #919aa6;
+    --neu-shadow-light: #edfaff;
+    --neu-flat: #bfcadb;
+
+    --input-color: #C5CAE9;
+    --input-hover-light: #dfe1ec;
+    --input-hover-dark: #9598b1;
+    --input-active-color: #b7bad1;
+    --input-disabled-color: #dcdde4;
+
+    --notif-info-color: #3F51B5;
+    --notif-success-color: #32992f;
+    --notif-warning-color: #e9e64c;
+    --notif-error-color: #df4b4b;
+}
