@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" >
 
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="Description" content="Hexagon multiplayer game">
   <title>Hexagon</title>
+
   <link data-trunk rel="scss" href="styles/main.scss" />
   <link data-trunk rel="scss" href="styles/ui.scss" />
 </head>
@@ -129,6 +131,36 @@
 </style>
 
 <body>
+  <script>
+    function loadBulma(file){
+      if(document.getElementById("theme")){
+        document.head.removeChild(document.getElementById("theme"))
+      }
+      var head  = document.getElementsByTagName('head')[0];
+      var link  = document.createElement('link');
+      link.rel  = 'stylesheet';
+      link.type = 'text/css';
+      link.href = file;
+      link.id = "theme"
+      link.media = 'all';
+      head.appendChild(link);
+    }
+  if (window.matchMedia && 
+    window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      loadBulma("dark.min.css")
+    }else{
+      loadBulma("light.min.css")
+    }
+  window.matchMedia('(prefers-color-scheme: dark)').addListener(
+    e => {
+      if (e.matches){
+        loadBulma("dark.min.css")
+      }else{
+        loadBulma("light.min.css")
+      }
+    }
+  )
+  </script>
   <div class="loaderbg">
     <div class="sk-cube-grid">
       <div class="sk-cube sk-cube1"></div>
