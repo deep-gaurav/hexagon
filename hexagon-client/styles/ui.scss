@@ -30,6 +30,10 @@
     --notif-error-color: #df4b4b;
 }
 
+* {
+    outline:none;
+}
+
 html,body{
     background-color: var(--background-color);
 }
