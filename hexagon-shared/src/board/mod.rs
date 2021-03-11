@@ -156,6 +156,26 @@ impl Board {
         }
     }
 
+    pub fn generate_honeycomb(width:i32, height:i32, first_turn: Color, second_color: Color) ->Self {
+        let mut points = HashMap::new();
+        for i in -width-1..width*2{
+            for j in -height-1..height*2{
+                let ax = AxialCoord::from(Cube::from(OffsetCoord{
+                    row:j,
+                    col:i,
+                }));
+                points.insert((ax.q,ax.r),ax );
+            }
+        }
+        let pieces =HashMap::new();
+        Self{
+            points,
+            pieces,
+            turn:first_turn,
+            max_size:width as u32,
+        }
+    }
+
     pub fn get_neighbours(&self, point: &Point) -> Vec<Point> {
         let cube_directions = [
             Cube { x: 1, y: -1, z: 0 },

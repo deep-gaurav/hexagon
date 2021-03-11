@@ -60,7 +60,8 @@ html,body{
     transition: all 0.3s ease-in-out;
     padding: 10px;
     border-radius: 5%;
-    background-color: var(--card-color);
+    // background-color: var(--card-color);
+    backdrop-filter: blur(20px);
 }
 .box:active,.box:hover {
      box-shadow:  10px 10px 30px var(--neu-shadow-dark),

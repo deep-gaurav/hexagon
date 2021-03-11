@@ -30,5 +30,7 @@ features = [
     'HtmlTextAreaElement',
     'Blob',
     'Url',
-    'CloseEvent'
+    'CloseEvent',
+    'Screen',
+    'Window'
 ]

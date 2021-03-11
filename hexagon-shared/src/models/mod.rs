@@ -32,6 +32,19 @@ impl From<AxialCoord> for Cube {
     }
 }
 
+impl From<OffsetCoord> for Cube {
+    fn from(hex: OffsetCoord) -> Self {
+        let x = hex.col - (hex.row - (hex.row&1)) / 2;
+        let z = hex.row;
+        let y = -x-z;
+        Self{
+            x,
+            y,
+            z
+        }
+    }
+}
+
 impl std::ops::Add for Cube{
     type Output = Self;
 
