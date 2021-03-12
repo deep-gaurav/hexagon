@@ -132,79 +132,83 @@ impl Component for Room {
                             {format!("Room {}",self.lobby.id)}
                         </h1>
                     </div>
-                <div class="my-2">
-                <div class="columns center-div  is-mobile">
-                {
-                    for self.lobby.players.iter().map(|p|html!{
-                        <div class="column mh-2">
-                        <PeerWidget key=format!("{:#?}",p) state=state.clone() peer=p.1.clone() turn=None/>
+                <div class="center-div">
+                <div style="display:inline-flex;">
+                    <div class="my-4 box" style="min-width:300px;">
+                        <div class="columns center-div  is-mobile">
+                        {
+                            for self.lobby.players.iter().map(|p|html!{
+                                <div class="column mh-2">
+                                <PeerWidget key=format!("{:#?}",p) state=state.clone() peer=p.1.clone() turn=None/>
+                                </div>
+                            })
+                        }
                         </div>
-                    })
-                }
+                    // {
+                    //     if self.lobby.players.len()>2{
+                    //         html!{
+                    // <div class="level is-mobile">
+                    //     <div class="level-item">
+                    //         <div class="tabs is-toggle is-toggle-rounded">
+                    //             <ul>
+                    //                 <li class= {
+                    //                     if self.teammode!=TeamMode::Solo{
+                    //                         ""
+                    //                     }else{
+                    //                         "is-active"
+                    //                     }
+                    //                 }>
+                    //                     <a
+                    //                         onclick=self.link.callback(|_|Msg::ChangeTeamMode(TeamMode::Solo))
+                    //                     >
+                    //                         <span class="icon">
+                    //                             {"Solo"}
+                    //                         </span>
+                    //                     </a>
+                    //                 </li>
+                    //                 <li class= {
+                    //                     if self.teammode==TeamMode::Solo{
+                    //                         ""
+                    //                     }else{
+                    //                         "is-active"
+                    //                     }
+                    //                 }>
+                    //                     <a class="level-item"
+                    //                         onclick=self.link.callback(|_|Msg::ChangeTeamMode(TeamMode::Team))
+                    //                     >
+                    //                         <span class="icon">
+                    //                             {"Team"}
+                    //                         </span>
+                    //                     </a>
+                    //                 </li>
+                    //             </ul>
+                    //         </div>
+                    //     </div>
+                    // </div>
+
+                    //         }
+                    //     }else{
+                    //         html!{}
+                    //     }
+                    // }
+                        {
+                            if self.selfid==self.lobby.state.leader(){
+                                html!{
+                                    <div class="container my-4 center-div has-text-centered">
+                                        <button disabled={!canstart} class="button is-primary" onclick=self.link.callback(
+                                            |_|Msg::StartGame
+                                        )>{"Start"}</button>
+                                    </div>
+                                }
+                            }else{
+                                html!{
+
+                                }
+                            }
+
+                        }
+                    </div>
                 </div>
-                // {
-                //     if self.lobby.players.len()>2{
-                //         html!{
-                // <div class="level is-mobile">
-                //     <div class="level-item">
-                //         <div class="tabs is-toggle is-toggle-rounded">
-                //             <ul>
-                //                 <li class= {
-                //                     if self.teammode!=TeamMode::Solo{
-                //                         ""
-                //                     }else{
-                //                         "is-active"
-                //                     }
-                //                 }>
-                //                     <a
-                //                         onclick=self.link.callback(|_|Msg::ChangeTeamMode(TeamMode::Solo))
-                //                     >
-                //                         <span class="icon">
-                //                             {"Solo"}
-                //                         </span>
-                //                     </a>
-                //                 </li>
-                //                 <li class= {
-                //                     if self.teammode==TeamMode::Solo{
-                //                         ""
-                //                     }else{
-                //                         "is-active"
-                //                     }
-                //                 }>
-                //                     <a class="level-item"
-                //                         onclick=self.link.callback(|_|Msg::ChangeTeamMode(TeamMode::Team))
-                //                     >
-                //                         <span class="icon">
-                //                             {"Team"}
-                //                         </span>
-                //                     </a>
-                //                 </li>
-                //             </ul>
-                //         </div>
-                //     </div>
-                // </div>
-
-                //         }
-                //     }else{
-                //         html!{}
-                //     }
-                // }
-                {
-                    if self.selfid==self.lobby.state.leader(){
-                        html!{
-                            <div class="container center-div has-text-centered">
-                                <button disabled={!canstart} class="button is-primary" onclick=self.link.callback(
-                                    |_|Msg::StartGame
-                                )>{"Start"}</button>
-                            </div>
-                        }
-                    }else{
-                        html!{
-
-                        }
-                    }
-
-                }
                 </div>
                 </div>
             </>

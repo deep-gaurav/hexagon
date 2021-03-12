@@ -155,6 +155,7 @@ impl Component for Game {
                     });
                 }
                 html! {
+                    <div class="box">
                     <div class="container" style="overflow:hidden;">
                         <div class="container">
                             <h1 class="title has-text-centered">
@@ -181,6 +182,7 @@ impl Component for Game {
                                 <HexBoard is_sim=false  key={format!("{:?}",board)} color=color board=board move_callback=self.link.callback(|mv|Msg::PlayerMove(mv)) />
                         </div>
 
+                    </div>
                     </div>
                     </div>
                 }

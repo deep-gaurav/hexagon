@@ -82,45 +82,25 @@ impl Component for HoneyCombBackdrop {
                     "height:{}%;width:{}%;
                     
                     left:{}%;top:{}%;
-                    background-color:{};
                     ",
+
                     cellheight,
                     cellwidth,
                     cellwidth*(off.col - 1 + self.wcell as i32) as f32 + shift_left*cellwidth,
                     cellheight*(off.row - 1 + self.hcell as i32) as f32 - shift_top,
-                    String::from(color)
                 )
                 onclick = self.link.callback(move|_|Msg::Ignore)
                 >
+                    <div class="hex-cell"
+                        style = format!(
+                            "background-color:{};",
+                            piece.map(|f|String::from(f)).unwrap_or(String::from(color))
+                        )
+                    />
                     
                 </div>
-                {
-                    if let Some(piece)=piece{
-                        html!{
-                            <div class="piece" 
-                            style=format!(
-                                "height:calc({}% - 10px);width:calc({}% - 10px);
-                                
-                                left:calc({}% + 5px);top:calc({}% + 5px);
-                                background-color:{};
-                                ",
-                                cellwidth,
-                                cellwidth,
-                                cellwidth*(off.col - 1 + self.board.max_size as i32) as f32 + shift_left*cellwidth,
-                                cellwidth*(off.row - 1 + self.board.max_size as i32) as f32 - shift_top,
-                                String::from(piece)
-                            )
-                            onclick = self.link.callback(move|_|Msg::Ignore)
-                            >
-                                
-                            </div>
-                        }
-                    }else{
-                        html!{
-                            
-                        }
-                    }
-                }
+                
+                
                 </>
             }
         });

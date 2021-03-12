@@ -32,6 +32,9 @@
 
 * {
     outline:none;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
 }
 
 html,body{
@@ -61,11 +64,13 @@ html,body{
     padding: 10px;
     border-radius: 5%;
     // background-color: var(--card-color);
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(3px);
 }
 .box:active,.box:hover {
-     box-shadow:  10px 10px 30px var(--neu-shadow-dark),
+    box-shadow:  10px 10px 30px var(--neu-shadow-dark),
              -10px -10px 30px var(--neu-shadow-light);
+    backdrop-filter: blur(7px);
+
 }
 
 .mt-2 {
@@ -75,6 +80,15 @@ html,body{
 .mh-2 {
     margin-left: 5px;
     margin-right: 5px;
+}
+.my-2 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.my-4 {
+
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 fieldset {

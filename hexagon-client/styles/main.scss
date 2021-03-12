@@ -1,5 +1,6 @@
 :root {
   --noarmalCellColor: #d4d4d4;
+  --boardBackgroundColor: #363636;
   --selectedCellColor: #606060;
   --nearNeighbourColor: #929292;
   --farNeighbourColor: rgb(175, 175, 175);
@@ -7,9 +8,16 @@
 
 .hexagon {
   position: absolute;
-  background-color: #64C7CC;
+  background-color: var(--boardBackgroundColor);
   clip-path: polygon(0 25%, 50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%);
-  
+}
+
+.hex-cell {
+  position: relative;
+  width: 90%;
+  height: 90%;
+  background-color: var(--boardBackgroundColor);
+  clip-path: polygon(0 25%, 50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%);
 }
 
 .piece {

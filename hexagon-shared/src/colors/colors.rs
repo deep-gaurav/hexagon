@@ -8,7 +8,8 @@ pub enum Color {
     DarkRed,
     LightRed,
     Blue,
-    Yellow
+    Yellow,
+    Transparent
 }
 
 impl From<Color> for String{
@@ -20,6 +21,7 @@ impl From<Color> for String{
             Color::Blue => {"blue".to_string()}
             Color::Yellow => {"yellow".to_string()}
             Color::LightRed => {"lightred".to_string()}
+            Color::Transparent=> {"transparent".to_string()}
         }
     }
 }
