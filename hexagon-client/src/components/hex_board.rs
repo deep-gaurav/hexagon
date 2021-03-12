@@ -7,6 +7,7 @@ use crate::ui::GameColors;
 
 pub struct HexBoard {
     pub board: Board,
+    pub is_sim:bool,
     move_callback:Callback<Move>,
     selected_cell: Option<Point>,
     player_color:Color,
@@ -15,13 +16,15 @@ pub struct HexBoard {
 
 pub enum Msg {
     SelectPoint(Point),
+    
 }
 
 #[derive(Debug, Clone, Properties)]
 pub struct Props {
     pub board:Board,
     pub color:Color,
-    pub move_callback:Callback<Move>
+    pub move_callback:Callback<Move>,
+    pub is_sim:bool,
 }
 
 impl Component for HexBoard {
@@ -36,32 +39,37 @@ impl Component for HexBoard {
             link,
             player_color:props.color,
             move_callback:props.move_callback,
+            is_sim:props.is_sim
         }
     }
 
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
         match msg {
             Msg::SelectPoint(pt) => {
-                
-                if let Some(ptold) = self.selected_cell {
-                    if self.board.is_move_legal(&Move{
-                        from:ptold,
-                        to:pt,
-                    }){
-                        self.move_callback.emit(Move{
+                if self.is_sim{
+                    false
+                }else{
+                    if let Some(ptold) = self.selected_cell {
+                        if self.board.is_move_legal(&Move{
                             from:ptold,
                             to:pt,
-                        });
-                    }
-                    else if pt == ptold {
-                        self.selected_cell = None;
+                        }){
+                            self.move_callback.emit(Move{
+                                from:ptold,
+                                to:pt,
+                            });
+                        }
+                        else if pt == ptold {
+                            self.selected_cell = None;
+                        } else {
+                            self.selected_cell = Some(pt);
+                        }
                     } else {
                         self.selected_cell = Some(pt);
                     }
-                } else {
-                    self.selected_cell = Some(pt);
+                    true
                 }
-                true
+
             }
         }
     }

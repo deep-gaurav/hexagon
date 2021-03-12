@@ -158,8 +158,8 @@ impl Board {
 
     pub fn generate_honeycomb(width:i32, height:i32, first_turn: Color, second_color: Color) ->Self {
         let mut points = HashMap::new();
-        for i in -width-1..width*2{
-            for j in -height-1..height*2{
+        for i in -width..width{
+            for j in -height-2..height+2{
                 let ax = AxialCoord::from(Cube::from(OffsetCoord{
                     row:j,
                     col:i,

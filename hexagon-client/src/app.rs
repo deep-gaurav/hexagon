@@ -9,7 +9,7 @@ use crate::components::game::Game;
 use crate::components::home::Home;
 use crate::components::notification_widget::NotificationWidget;
 use crate::components::room::Room;
-use crate::components::hex_board::HexBoard;
+use crate::components::backdrop::HoneyCombBackdrop;
 
 
 pub struct App {
@@ -140,31 +140,14 @@ impl Component for App {
         let home = html! {
             <Home prefillroomid="".to_string() lobbyjoinedcb=self.link.callback(move |f:(String,Lobby,Color)|Msg::LobbyJoined(f.0,f.1,f.2))/>
         };
-        let width:i32 = yew::utils::window().screen().expect("Cant get screen").width().expect("Width not present");
-        let height:i32 = yew::utils::window().screen().expect("Cant get screen").height().expect("height not present");
-        let height_ratio = width/height;
-        let board = {
-            if width>height{
-                let cellwidth = 200;
-                let wcell = width/(cellwidth/2);
-                let hcell = height/(cellwidth/2) +1;
-                Board::generate_honeycomb(wcell,2*hcell, Color::Green, Color::Red)
-            }else{
-                let cellwidth = 100;
-                let wcell = width/(cellwidth/2);
-                let hcell = height/(cellwidth/2) +1;
-                Board::generate_honeycomb(wcell,2*hcell, Color::Green, Color::Red)
-            }
-        };
+        
         let lobby = self.lobby.clone();
         let selfid = self.selfid.clone();
         let linkclone = self.link.clone();
         
         html! {
             <div>
-                <div class="honeyback">
-                    <HexBoard board=board color=Color::Red move_callback=self.link.callback(|_|Msg::Ignore) />
-                </div>
+                <HoneyCombBackdrop />
                 <Router<AppRoute, ()>
                     render = Router::render(move |switch: AppRoute| {
                         let home = home.clone();

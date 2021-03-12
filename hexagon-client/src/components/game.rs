@@ -178,7 +178,7 @@ impl Component for Game {
                                     for progresses
                                 }
                             </div>
-                                <HexBoard  key={format!("{:?}",board)} color=color board=board move_callback=self.link.callback(|mv|Msg::PlayerMove(mv)) />
+                                <HexBoard is_sim=false  key={format!("{:?}",board)} color=color board=board move_callback=self.link.callback(|mv|Msg::PlayerMove(mv)) />
                         </div>
 
                     </div>
