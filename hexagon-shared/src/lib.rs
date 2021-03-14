@@ -6,7 +6,7 @@ mod tests {
     }
 }
 
-pub mod models;
 pub mod board;
-pub mod structures;
 pub mod colors;
+pub mod models;
+pub mod structures;

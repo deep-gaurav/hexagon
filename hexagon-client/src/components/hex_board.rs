@@ -1,30 +1,33 @@
 use yew::prelude::*;
 
-use hexagon_shared::{board::{Board, Point}, colors::colors::Color, structures::Move};
 use hexagon_shared::models::*;
+use hexagon_shared::{
+    board::{Board, Point},
+    colors::colors::Color,
+    structures::Move,
+};
 
 use crate::ui::GameColors;
 
 pub struct HexBoard {
     pub board: Board,
-    pub is_sim:bool,
-    move_callback:Callback<Move>,
+    pub is_sim: bool,
+    move_callback: Callback<Move>,
     selected_cell: Option<Point>,
-    player_color:Color,
+    player_color: Color,
     link: ComponentLink<Self>,
 }
 
 pub enum Msg {
     SelectPoint(Point),
-    
 }
 
 #[derive(Debug, Clone, Properties)]
 pub struct Props {
-    pub board:Board,
-    pub color:Color,
-    pub move_callback:Callback<Move>,
-    pub is_sim:bool,
+    pub board: Board,
+    pub color: Color,
+    pub move_callback: Callback<Move>,
+    pub is_sim: bool,
 }
 
 impl Component for HexBoard {
@@ -37,29 +40,28 @@ impl Component for HexBoard {
             board: props.board,
             selected_cell: None,
             link,
-            player_color:props.color,
-            move_callback:props.move_callback,
-            is_sim:props.is_sim
+            player_color: props.color,
+            move_callback: props.move_callback,
+            is_sim: props.is_sim,
         }
     }
 
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
         match msg {
             Msg::SelectPoint(pt) => {
-                if self.is_sim{
+                if self.is_sim {
                     false
-                }else{
+                } else {
                     if let Some(ptold) = self.selected_cell {
-                        if self.board.is_move_legal(&Move{
-                            from:ptold,
-                            to:pt,
-                        }){
-                            self.move_callback.emit(Move{
-                                from:ptold,
-                                to:pt,
+                        if self.board.is_move_legal(&Move {
+                            from: ptold,
+                            to: pt,
+                        }) {
+                            self.move_callback.emit(Move {
+                                from: ptold,
+                                to: pt,
                             });
-                        }
-                        else if pt == ptold {
+                        } else if pt == ptold {
                             self.selected_cell = None;
                         } else {
                             self.selected_cell = Some(pt);
@@ -69,7 +71,6 @@ impl Component for HexBoard {
                     }
                     true
                 }
-
             }
         }
     }
@@ -80,18 +81,18 @@ impl Component for HexBoard {
 
     fn view(&self) -> Html {
         let cellwidth = 100.0 / ((self.board.max_size * 2) - 1) as f32;
-        
+
         let mut neighbourpts = vec![];
         let mut secondaryneighbours = vec![];
-        
+
         if let Some(pt) = self.selected_cell {
-            if let Some(c) = self.board.pieces.get(&pt){
-                if *c == self.board.turn && self.board.turn == self.player_color{
-                    neighbourpts= self.board.get_neighbours(&pt);
+            if let Some(c) = self.board.pieces.get(&pt) {
+                if *c == self.board.turn && self.board.turn == self.player_color {
+                    neighbourpts = self.board.get_neighbours(&pt);
                     secondaryneighbours = self.board.get_secondary_neighbours(&pt);
                 }
             }
-        } 
+        }
 
         let hexs = self.board.points.iter().map(|(k,v)|{
             let off = OffsetCoord::from(v.clone());

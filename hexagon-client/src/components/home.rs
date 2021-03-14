@@ -1,4 +1,7 @@
-use hexagon_shared::{colors::colors::Color, structures::{Lobby, PlayerMessage, SocketMessage}};
+use hexagon_shared::{
+    colors::colors::Color,
+    structures::{Lobby, PlayerMessage, SocketMessage},
+};
 use yew::prelude::*;
 
 use crate::agent::socket_agent::{AgentInput, AgentOutput, SocketAgent};

@@ -143,10 +143,10 @@ impl Component for Game {
                                             width:{}%;
                                             left:{}%;
                                         "#,
-                                    String::from(color.0),
-                                    color.1 as f32 * 100.0 / total as f32,
-                                    leftas
-                                )
+                                        String::from(color.0),
+                                        color.1 as f32 * 100.0 / total as f32,
+                                        leftas
+                                    )
                                 />
                             }
                         } else {

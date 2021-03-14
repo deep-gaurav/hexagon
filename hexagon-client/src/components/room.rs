@@ -1,11 +1,12 @@
-use hexagon_shared::structures::{GameType, Lobby, Player, PlayerMessage, SocketMessage, State, TeamMode};
+use hexagon_shared::structures::{
+    GameType, Lobby, Player, PlayerMessage, SocketMessage, State, TeamMode,
+};
 use yew::prelude::*;
 
 use crate::agent::socket_agent::*;
 use crate::components::peer::PeerWidget;
 
 use crate::app::{go_to_route, AppRoute};
-
 
 pub struct Room {
     _socket_agent: Box<dyn yew::Bridge<SocketAgent>>,
@@ -83,9 +84,7 @@ impl Component for Room {
             Msg::StartGame => {
                 self._socket_agent
                     .send(AgentInput::Send(PlayerMessage::StartGame(
-                        {
-                            GameType::TwoPlayer
-                        },
+                        { GameType::TwoPlayer },
                         self.teammode.clone(),
                     )));
                 false

@@ -1,4 +1,3 @@
-
 use hexagon_shared::colors::colors::Color;
 use yew::prelude::*;
 

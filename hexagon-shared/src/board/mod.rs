@@ -1,6 +1,8 @@
 use std::{collections::HashMap, hash::Hash, ops::Index};
 
 use crate::{colors::colors::Color, models::*, structures::Move};
+use itertools::Itertools;
+use rand::seq::SliceRandom;
 
 use serde::{Deserialize, Serialize};
 
@@ -156,23 +158,41 @@ impl Board {
         }
     }
 
-    pub fn generate_honeycomb(width:i32, height:i32, first_turn: Color, second_color: Color) ->Self {
+    pub fn generate_honeycomb(
+        width: i32,
+        height: i32,
+        fill_per_color: usize,
+        first_turn: Color,
+        second_color: Color,
+    ) -> Self {
         let mut points = HashMap::new();
-        for i in -width..width{
-            for j in -height-2..height+2{
-                let ax = AxialCoord::from(Cube::from(OffsetCoord{
-                    row:j,
-                    col:i,
-                }));
-                points.insert((ax.q,ax.r),ax );
+        for i in -width..width {
+            for j in -height - 2..height + 2 {
+                let ax = AxialCoord::from(Cube::from(OffsetCoord { row: j, col: i }));
+                points.insert((ax.q, ax.r), ax);
             }
         }
-        let pieces =HashMap::new();
-        Self{
+        let random_colors = 5;
+
+        let mut pieces = HashMap::new();
+        for i in 0..fill_per_color {
+            let colors = vec![first_turn, second_color];
+            for color in colors {
+                let rp = points
+                    .iter()
+                    .filter(|(p, c)| !pieces.contains_key(*p))
+                    .collect_vec();
+                let rp = rp.choose(&mut rand::thread_rng());
+                if let Some(p) = rp {
+                    pieces.insert(*p.0, color);
+                }
+            }
+        }
+        Self {
             points,
             pieces,
-            turn:first_turn,
-            max_size:width as u32,
+            turn: first_turn,
+            max_size: width as u32,
         }
     }
 
@@ -247,8 +267,8 @@ impl Board {
             if neighbour.contains(&mov.to) {
                 self.pieces.insert(mov.to, self.turn);
                 let neighours = self.get_neighbours(&mov.to);
-                for point in neighours.iter(){
-                    if self.pieces.get(point).is_some(){
+                for point in neighours.iter() {
+                    if self.pieces.get(point).is_some() {
                         self.pieces.insert(*point, self.turn);
                     }
                 }
@@ -257,8 +277,8 @@ impl Board {
                 self.pieces.remove(&mov.from);
                 self.pieces.insert(mov.to, self.turn);
                 let neighours = self.get_neighbours(&mov.to);
-                for point in neighours.iter(){
-                    if self.pieces.get(point).is_some(){
+                for point in neighours.iter() {
+                    if self.pieces.get(point).is_some() {
                         self.pieces.insert(*point, self.turn);
                     }
                 }
@@ -270,7 +290,7 @@ impl Board {
             false
         }
     }
-    pub fn change_turn(&mut self, next_color:Color){
+    pub fn change_turn(&mut self, next_color: Color) {
         self.turn = next_color;
     }
 }

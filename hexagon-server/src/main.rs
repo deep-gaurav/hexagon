@@ -1,7 +1,10 @@
 pub mod structures;
+use hexagon_shared::{
+    colors::colors::Color,
+    structures::{CloseCodes, Lobby, PlayerMessage, PlayerStatus, SocketMessage, State},
+};
 use std::collections::HashMap;
 use std::sync::Arc;
-use hexagon_shared::{colors::colors::Color, structures::{CloseCodes, Lobby, PlayerMessage, PlayerStatus, SocketMessage, State}};
 use tokio_stream::wrappers::UnboundedReceiverStream;
 use warp::filters::ws::{Message, WebSocket, Ws};
 use warp::Filter;
@@ -127,10 +130,10 @@ async fn user_connected(websocket: WebSocket, context: Context) {
                                         use rand::{distributions::Alphanumeric, Rng};
                                         let lobbyid: String = {
                                             rand::thread_rng()
-                                            .sample_iter(&Alphanumeric)
-                                            .take(5)
-                                            .map(char::from)
-                                            .collect()
+                                                .sample_iter(&Alphanumeric)
+                                                .take(5)
+                                                .map(char::from)
+                                                .collect()
                                         };
                                         let privatelobbies =
                                             &mut context.write().await.private_lobbies;
@@ -162,7 +165,9 @@ async fn user_connected(websocket: WebSocket, context: Context) {
                                         let privatelobbies =
                                             &mut context.write().await.private_lobbies;
                                         if let Some(lobby) = privatelobbies.get_mut(&lobbyid) {
-                                            if let Some(color) = Lobby::from(lobby.clone()).get_available_color() {
+                                            if let Some(color) =
+                                                Lobby::from(lobby.clone()).get_available_color()
+                                            {
                                                 player.status = PlayerStatus::JoinedLobby(
                                                     lobby.id.clone(),
                                                     color.clone(),
@@ -222,13 +227,18 @@ async fn user_connected(websocket: WebSocket, context: Context) {
 async fn player_message(player_id: &str, lobbyid: &str, context: &Context, message: PlayerMessage) {
     let lobbies = &mut context.write().await.private_lobbies;
     if let Some(lobby) = lobbies.get_mut(lobbyid) {
-        let colors = lobby.players.iter().map(|(id,p)|{
-            if let PlayerStatus::JoinedLobby(_,c)=p.status{
-                Some(c)
-            }else{
-                None
-            }
-        }).filter_map(|f|f).collect::<Vec<_>>();
+        let colors = lobby
+            .players
+            .iter()
+            .map(|(id, p)| {
+                if let PlayerStatus::JoinedLobby(_, c) = p.status {
+                    Some(c)
+                } else {
+                    None
+                }
+            })
+            .filter_map(|f| f)
+            .collect::<Vec<_>>();
         if let Some(player) = lobby.players.get_mut(player_id) {
             match message {
                 PlayerMessage::Ping => {
@@ -244,7 +254,10 @@ async fn player_message(player_id: &str, lobbyid: &str, context: &Context, messa
                             if &board.turn == color {
                                 if board.is_move_legal(&mov) {
                                     board.apply_move(&mov);
-                                    let next_color  = colors.into_iter().find(|c|c!=&board.turn).unwrap_or(board.turn);
+                                    let next_color = colors
+                                        .into_iter()
+                                        .find(|c| c != &board.turn)
+                                        .unwrap_or(board.turn);
                                     board.change_turn(next_color);
                                     let newboard = board.clone();
                                     lobby.broadcast(SocketMessage::Moved(newboard, mov.clone()))

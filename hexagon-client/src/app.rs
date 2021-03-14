@@ -1,16 +1,19 @@
-use hexagon_shared::{board::Board, colors::colors::Color, structures::{Lobby, Player, PlayerMessage, PlayerStatus, SocketMessage, State}};
+use hexagon_shared::{
+    board::Board,
+    colors::colors::Color,
+    structures::{Lobby, Player, PlayerMessage, PlayerStatus, SocketMessage, State},
+};
 use yew::prelude::*;
 use yew_router::prelude::*;
 
 use crate::agent::notification_agent::*;
 use crate::agent::socket_agent::*;
 
+use crate::components::backdrop::HoneyCombBackdrop;
 use crate::components::game::Game;
 use crate::components::home::Home;
 use crate::components::notification_widget::NotificationWidget;
 use crate::components::room::Room;
-use crate::components::backdrop::HoneyCombBackdrop;
-
 
 pub struct App {
     _agent: Box<dyn yew::Bridge<SocketAgent>>,
@@ -75,7 +78,6 @@ impl Component for App {
     }
 
     fn update(&mut self, _msg: Self::Message) -> ShouldRender {
-        
         match _msg {
             Msg::Ping => {
                 if self.lobby.is_some() {
@@ -140,11 +142,11 @@ impl Component for App {
         let home = html! {
             <Home prefillroomid="".to_string() lobbyjoinedcb=self.link.callback(move |f:(String,Lobby,Color)|Msg::LobbyJoined(f.0,f.1,f.2))/>
         };
-        
+
         let lobby = self.lobby.clone();
         let selfid = self.selfid.clone();
         let linkclone = self.link.clone();
-        
+
         html! {
             <div>
                 <HoneyCombBackdrop />

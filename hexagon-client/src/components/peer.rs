@@ -1,9 +1,11 @@
-use hexagon_shared::{colors::colors::Color, structures::{Player, PlayerStatus, State}};
+use hexagon_shared::{
+    colors::colors::Color,
+    structures::{Player, PlayerStatus, State},
+};
 use web_sys::Blob;
 use yew::prelude::*;
 
 use crate::agent::socket_agent::*;
-
 
 use wasm_bindgen::prelude::*;
 

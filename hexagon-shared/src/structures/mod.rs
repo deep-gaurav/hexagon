@@ -1,43 +1,40 @@
+use log::{error, warn};
+use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::sync::Arc;
-use serde::{Deserialize, Serialize};
-use log::{error, warn};
 
 use std::collections::HashSet;
 use strum::IntoEnumIterator;
 
-use crate::{board::Point, colors::colors::Color};
 use crate::board::Board;
+use crate::{board::Point, colors::colors::Color};
 
 static DEFAULT_DRAW_TIME: u32 = 90;
 
-
-#[derive(Debug,Clone,Serialize,Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub enum GameType {
-    TwoPlayer
+    TwoPlayer,
 }
 
-#[derive(Debug,Clone,Serialize,Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub enum TeamMode {
-    Solo
+    Solo,
 }
 
-#[derive(Debug,Clone,Serialize,Deserialize)]
-pub struct Move{
-    pub from:Point,
-    pub to:Point,
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct Move {
+    pub from: Point,
+    pub to: Point,
 }
 
-
-#[derive(Serialize,Deserialize, Debug, Clone)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Lobby {
     pub id: String,
     pub players: HashMap<String, Player>,
     pub state: State,
 }
 
-
-#[derive(Debug, Clone, Serialize,Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Player {
     pub id: String,
     pub name: String,
@@ -64,7 +61,7 @@ impl Lobby {
     }
 }
 
-#[derive(Debug, Serialize,Deserialize, Clone)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub enum State {
     Lobby(String),
     Game(Board),
@@ -82,15 +79,13 @@ impl State {
     }
 }
 
-
-
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub enum PlayerStatus {
     Initiated,
     JoinedLobby(String, Color),
 }
 
-#[derive(Debug, Serialize,Deserialize, Copy, Clone)]
+#[derive(Debug, Serialize, Deserialize, Copy, Clone)]
 pub enum CloseCodes {
     WrongInit,
     CantCreateLobby,
@@ -116,7 +111,6 @@ impl CloseCodes {
     }
 }
 
-
 #[derive(Debug, Serialize, Deserialize)]
 pub enum PlayerMessage {
     Initialize(String, String),
@@ -128,7 +122,7 @@ pub enum PlayerMessage {
     StartGame(GameType, TeamMode),
 }
 
-#[derive(Debug, Serialize,Deserialize, Clone)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub enum SocketMessage {
     LobbyJoined(Lobby, Color),
     PlayerJoined(Player, Color),

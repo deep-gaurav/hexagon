@@ -29,9 +29,7 @@ impl Component for NotificationWidget {
         Self {
             link,
             notif_agent: agent,
-            notifs: vec![
-                
-            ],
+            notifs: vec![],
         }
     }
 

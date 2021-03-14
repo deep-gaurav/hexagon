@@ -1,6 +1,6 @@
-use serde::{Serialize,Deserialize};
+use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Clone,Serialize,Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct AxialCoord {
     pub q: i32,
     pub r: i32,
@@ -34,25 +34,21 @@ impl From<AxialCoord> for Cube {
 
 impl From<OffsetCoord> for Cube {
     fn from(hex: OffsetCoord) -> Self {
-        let x = hex.col - (hex.row - (hex.row&1)) / 2;
+        let x = hex.col - (hex.row - (hex.row & 1)) / 2;
         let z = hex.row;
-        let y = -x-z;
-        Self{
-            x,
-            y,
-            z
-        }
+        let y = -x - z;
+        Self { x, y, z }
     }
 }
 
-impl std::ops::Add for Cube{
+impl std::ops::Add for Cube {
     type Output = Self;
 
     fn add(self, rhs: Self) -> Self::Output {
-        Self{
-            x:self.x+rhs.x,
-            y:self.y+rhs.y,
-            z:self.z+rhs.z,
+        Self {
+            x: self.x + rhs.x,
+            y: self.y + rhs.y,
+            z: self.z + rhs.z,
         }
     }
 }
@@ -65,9 +61,9 @@ pub struct OffsetCoord {
 
 impl From<Cube> for OffsetCoord {
     fn from(cube: Cube) -> Self {
-        Self{
-            col : cube.x + (cube.z - (cube.z&1)) / 2,
-            row : cube.z
+        Self {
+            col: cube.x + (cube.z - (cube.z & 1)) / 2,
+            row: cube.z,
         }
     }
 }

@@ -12,7 +12,6 @@ use yew::worker::AgentLink;
 use serde::{Deserialize, Serialize};
 use web_sys::*;
 
-
 pub enum AgentInput {
     Connect(String),
     Send(PlayerMessage),
