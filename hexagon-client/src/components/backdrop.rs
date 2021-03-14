@@ -37,16 +37,10 @@ impl HoneyCombBackdrop {
         }
     }
     fn generate_board() -> (Board, f32, f32) {
-        let width: f32 = yew::utils::window()
-            .inner_width()
-            .expect("Width not present")
-            .as_f64()
-            .expect("Not number") as f32;
-        let height: f32 = yew::utils::window()
-            .inner_height()
-            .expect("height not present")
-            .as_f64()
-            .expect("Not number") as f32;
+        let width: f32 = yew::utils::document().body().expect("No body")
+            .client_width() as f32;
+        let height: f32 = yew::utils::document().body().expect("No body")
+            .client_height() as f32;
         let height_ratio = width / height;
 
         let hex_r = 1.1547005;

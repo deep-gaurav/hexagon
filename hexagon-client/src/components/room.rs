@@ -194,7 +194,7 @@ impl Component for Room {
                             if self.selfid==self.lobby.state.leader(){
                                 html!{
                                     <div class="container my-4 center-div has-text-centered">
-                                        <button disabled={!canstart} class="button is-primary" onclick=self.link.callback(
+                                        <button disabled={!canstart} class="button" onclick=self.link.callback(
                                             |_|Msg::StartGame
                                         )>{"Start"}</button>
                                     </div>
