@@ -26,11 +26,14 @@ pub enum Msg {
 pub struct Props {}
 
 impl HoneyCombBackdrop {
+
+    
+
     fn get_next_color(&self) -> Color {
-        if self.board.turn == Color::Red {
-            Color::Green
+        if self.board.turn == Color::BackgroundP1 {
+            Color::BackgroundP2
         } else {
-            Color::Red
+            Color::BackgroundP1
         }
     }
     fn generate_board() -> (Board, f32, f32) {
@@ -51,7 +54,7 @@ impl HoneyCombBackdrop {
         let wcell = width / cellwidth;
         let hcell = height / cellwidth * hex_r;
         let board =
-            Board::generate_honeycomb(wcell as i32, hcell as i32, 5, Color::Green, Color::Red);
+            Board::generate_honeycomb(wcell as i32, hcell as i32, 5, Color::BackgroundP1, Color::BackgroundP2);
         (board, hcell, wcell)
     }
 }

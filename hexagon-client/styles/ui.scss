@@ -39,6 +39,7 @@
 
 html,body{
     background-color: var(--background-color);
+    height: 100%;
 }
 
 .container{
@@ -236,13 +237,13 @@ button:active,button:hover {
 .is-info {
     background-color: var(--notif-info-color);
 }
-.is-error {
+.is-danger {
     background-color: var(--notif-error-color);
 }
 .is-warning {
     background-color: var(--notif-warning-color);
 }
-.is-success {
+.is-primary {
     background-color: var(--notif-success-color);
 }
 

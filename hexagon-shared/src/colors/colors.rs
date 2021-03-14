@@ -12,6 +12,8 @@ pub enum Color {
     Blue,
     Yellow,
     Transparent,
+    BackgroundP1,
+    BackgroundP2,
 }
 
 impl From<Color> for String {
@@ -24,6 +26,8 @@ impl From<Color> for String {
             Color::Yellow => "yellow".to_string(),
             Color::LightRed => "lightred".to_string(),
             Color::Transparent => "transparent".to_string(),
+            Color::BackgroundP1 => {"var(--background-player1)".to_string()}
+            Color::BackgroundP2 => {"var(--background-player2)".to_string()}
         }
     }
 }

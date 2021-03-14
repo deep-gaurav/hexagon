@@ -148,7 +148,7 @@ impl Component for App {
         let linkclone = self.link.clone();
 
         html! {
-            <div>
+            <div style="position:relative;height:100%;">
                 <HoneyCombBackdrop />
                 <Router<AppRoute, ()>
                     render = Router::render(move |switch: AppRoute| {

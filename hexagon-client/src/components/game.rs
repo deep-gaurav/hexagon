@@ -155,7 +155,7 @@ impl Component for Game {
                     });
                 }
                 html! {
-                    <div class="box">
+                    <div class="box" style="position:relative;height:100%;">
                     <div class="container" style="overflow:hidden;">
                         <div class="container">
                             <h1 class="title has-text-centered">
