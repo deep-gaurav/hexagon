@@ -76,17 +76,16 @@ impl Agent for SocketAgent {
                 let linkclone = self.link.clone();
                 let onmessage_callback = Closure::wrap(Box::new(move |e: MessageEvent| {
                     // handle message
-
-                    let uint8array = js_sys::Uint8Array::new(&e.data());
-                    let vec = uint8array.to_vec();
-                    match bincode::deserialize(&vec[..]) {
-                        Ok(msg) => linkclone.send_message(Msg::SocketMessage(msg)),
-                        Err(er) => {
-                            log::error!("Message received not Socket Message {:#?} {:#?}", er, vec);
-                            log::error!("Is text {}", e.data().is_string());
-                            log::error!("Data {:#?}", js_sys::Uint8Array::new(&e.data()).to_vec());
-                            log::error!("Data {:#?}", js_sys::Uint16Array::new(&e.data()).to_vec());
+                    let data:JsValue = e.data();
+                    if let Some(data) = data.as_string(){
+                        match serde_json::from_str(&data){
+                            Ok(msg) => linkclone.send_message(Msg::SocketMessage(msg)),
+                            Err(er) => {
+                                log::error!("Message received not Socket Message {:#?}", er);
+                            }
                         }
+                    }else{
+                        log::error!("Data not string");
                     }
                 })
                     as Box<dyn FnMut(MessageEvent)>);
@@ -192,9 +191,9 @@ impl SocketAgent {
     fn send_socket_message(&self, data: &PlayerMessage) {
         // log::debug!("Send Message {:#?}",data);
         match &self.socket {
-            Some(socket) => match bincode::serialize(&data) {
+            Some(socket) => match serde_json::to_string(&data) {
                 Ok(bytes) => {
-                    if let Err(er) = socket.send_with_u8_array(&bytes[..]) {
+                    if let Err(er) = socket. send_with_str (&bytes) {
                         log::warn!("Cant send message {:#?}", er);
                     }
                 }

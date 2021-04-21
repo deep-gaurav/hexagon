@@ -67,8 +67,8 @@ async fn user_connected(websocket: WebSocket, context: Context) {
     if let Some(result) = ws_rx.next().await {
         match result {
             Ok(msg) => {
-                if msg.is_binary() {
-                    match bincode::deserialize(msg.as_bytes()) {
+                if let Ok(msg)= msg.to_str() {
+                    match serde_json::from_str(msg) {
                         Ok(message) => match message {
                             PlayerMessage::Initialize(id, name) => {
                                 info!("Intialize player id {:#} name {:#?}", id, name);
@@ -103,7 +103,7 @@ async fn user_connected(websocket: WebSocket, context: Context) {
                         }
                     }
                 } else {
-                    error!("First message not binary {:#?}", msg);
+                    error!("Binary not supported {:#?}", msg);
                     if let Err(e) = tx.send(Ok(Message::close_with(
                         CloseCodes::WrongInit as u8,
                         CloseCodes::WrongInit.to_string(),
@@ -123,8 +123,8 @@ async fn user_connected(websocket: WebSocket, context: Context) {
             if let Some(result) = ws_rx.next().await {
                 match result {
                     Ok(msg) => {
-                        if msg.is_binary() {
-                            match bincode::deserialize(msg.as_bytes()) {
+                        if let Ok(msg)=msg.to_str() {
+                            match serde_json::from_str(msg) {
                                 Ok(message) => match message {
                                     PlayerMessage::CreateLobby => {
                                         use rand::{distributions::Alphanumeric, Rng};
@@ -195,7 +195,7 @@ async fn user_connected(websocket: WebSocket, context: Context) {
                                 }
                             }
                         } else {
-                            error!("Not binary message {:#?}", msg)
+                            error!("Not Text message {:#?}", msg)
                         }
                     }
                     Err(e) => {
@@ -305,8 +305,8 @@ async fn websocket_msg(
                 if message.is_close() {
                     // player_disconnect(&player_id, &lobbyid, &context);
                     break;
-                } else if message.is_binary() {
-                    match bincode::deserialize(message.as_bytes()) {
+                } else if let Ok(msg)=message.to_str() {
+                    match serde_json::from_str(msg) {
                         Ok(player_msg) => {
                             player_message(&player_id, &lobbyid, &context, player_msg).await;
                         }
@@ -315,7 +315,7 @@ async fn websocket_msg(
                         }
                     }
                 } else {
-                    warn!("Received message not binary {:#?}", message);
+                    warn!("Received message not text {:#?}", message);
                 }
             }
             Err(er) => {

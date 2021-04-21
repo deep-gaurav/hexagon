@@ -40,9 +40,9 @@ impl From<ServerPlayer> for Player {
 
 impl ServerPlayer {
     pub fn send(&self, message: SocketMessage) {
-        match bincode::serialize(&message) {
+        match serde_json::to_string(&message) {
             Ok(bytes) => {
-                if let Err(er) = self.send_channel.send(Ok(Message::binary(bytes))) {
+                if let Err(er) = self.send_channel.send(Ok(Message::text(bytes))) {
                     log::warn!("Cant send message to player {:#?} error {:#?}", self, er);
                 }
             }
