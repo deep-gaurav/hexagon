@@ -157,7 +157,7 @@ impl SocketAgent {
                 let onopen_callback = Closure::wrap(Box::new(move |_| {
                     updatecallback.emit((wss.clone(), url.clone()));
                 }) as Box<dyn FnMut(JsValue)>);
-                ws.set_binary_type(web_sys::BinaryType::Arraybuffer);
+                // ws.set_binary_type(web_sys::BinaryType::Arraybuffer);
 
                 ws.set_onopen(Some(onopen_callback.as_ref().unchecked_ref()));
                 onopen_callback.forget();
